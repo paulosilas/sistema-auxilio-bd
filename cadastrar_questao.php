@@ -1,6 +1,7 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu.php";
+	include "template/menu_professor.php";
+	$cod_atividade = $_GET['seq'];
 ?>        
 
 <div id="content">
@@ -14,6 +15,10 @@
 	<div id="enunciado">
 		<h3>Enunciado:</h3>
 		<textarea name="enunciado"> </textarea> <br />
+	</div>
+	<br />
+	<div id="enunciado">
+			<h3>Resposta:</h3><textarea name="resposta"></textarea> <br />
 	</div>
 	<b>Banco:</b> <select name="codigo">
   		<?php
@@ -33,7 +38,7 @@
 		}
   		?>
 	</select>
-	<br />
+	<input type="hidden" name="cod_atividade" value="<?php echo $cod_atividade;?>" />
 	<input type="submit" value="Cadastrar">
 	</form>
 	

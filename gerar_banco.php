@@ -1,17 +1,17 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu.php";
+	include "template/menu_professor.php";
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 	if($con){
-	$sql = "select logico from modelo WHERE cod_modelo=".$_GET['seq'];
+	$sql = "select fisico from modelo WHERE cod_modelo=".$_GET['seq'];
 		$rs = mysql_query($sql, $con);
 		if($rs){
 			if($valor = mysql_fetch_array($rs)){
-				$pieces = explode(";", $valor['logico']);
+				$pieces = explode(";", $valor['fisico']);
 				foreach ($pieces as $piece) {
 					$sql2 = $piece;
 					$rs2 = mysql_query($sql2, $con);

@@ -1,6 +1,6 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu.php";
+	include "template/menu_professor.php";
 	$resposta = $_POST['resposta'];
 	$codigo = $_POST['codigo'];
 	$array1 = "";
@@ -36,10 +36,10 @@
 				}
 			}
 
-			$resultado = array_diff ($array1 , $array2);
+			$resultado = array_diff ($array2 , $array1);
 
 			if($resultado == null){
-				echo "<h3>Resposta Correta!</h3>";
+				echo "<h3>Resposta Correta!</h3> <br />";
 			}else{
 				echo "<h3>Resposta Incorreta!</h3>";
 			}

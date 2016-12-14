@@ -1,19 +1,21 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	$resposta = $_POST['resposta'];
-	$cod_questao = $_POST['codigo'];
+	$semestre = $_POST['semestre'];
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 	if($con){
-		$sql = "insert into resposta_certa(resposta, cod_questao) ".
-			"values ('$resposta','$cod_questao')";
+		$sql = "insert into atividade(semestre, cod_professor) ".
+			"values ('$semestre', '".$_SESSION['cod_professor']."')";
 		$rs = mysql_query($sql, $con);
 		if($rs){
-			echo "<h1>Resposta Cadastrada com Sucesso.</h1>";
+			echo "<h1>Atividade Cadastrada com Sucesso.</h1>";
+			?>
+				<META HTTP-EQUIV="REFRESH" CONTENT="3; URL=http://localhost:8088/template/atividades.php">
+			<?php
 		}
 		else{
 			echo "Erro de inclusão: ".mysql_error();

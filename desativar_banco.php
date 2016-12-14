@@ -1,6 +1,6 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu.php";
+	include "template/menu_professor.php";
 ?>        
 
 <div id="content">

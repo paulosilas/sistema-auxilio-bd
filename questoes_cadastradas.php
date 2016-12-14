@@ -1,13 +1,13 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu.php";
+	include "template/menu_professor.php";
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 		if($con){
-		$sql = "SELECT * FROM questao;";
+		$sql = "SELECT * FROM questao WHERE cod_atividade =".$_GET['seq'];
 		$rs = mysql_query($sql, $con);
 		if($rs){?>
 			<h1> Questões Cadastradas </h1>

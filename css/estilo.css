@@ -63,6 +63,12 @@ body{
 	width: 80%;
 }
 
+#content_index{
+	float:left;
+	height: 100%;
+	width: 100%;
+}
+
 #sidebar{
 	width:20%;
 	height: 100%;
@@ -232,11 +238,11 @@ table a:visited{
 	display: block;
     margin: auto;
     padding: 10px 0 10px 0;
-    width: 55%;
+    width: 40%;
 	background-color: #dae4c0;
 }
 #caixa_login label{
-	margin-left: 5px;
+	margin-left: 25%;
 	font-weight: bold;
 }
 
@@ -247,7 +253,7 @@ table a:visited{
 }
 
 #caixa_login input[type=password]{
-	margin-left: 18px;
+	margin-left: 19px;
 	margin-top: 10px;
 	width: 150px;
 }
@@ -259,7 +265,7 @@ table a:visited{
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    margin-left: 80%;
+    margin-left: 63%;
 }
 
 

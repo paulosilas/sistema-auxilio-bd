@@ -9,5 +9,4 @@
 			$con2 = mysql_connect("localhost", "root", "", TRUE) or die ("A conexão do segundo banco com o servidor não foi executada com sucesso!");
 			$db2 = mysql_select_db($db_name, $con2) or die ("Não foi possível selecionar o segundo bando de dados!");
 		}
-
 ?>

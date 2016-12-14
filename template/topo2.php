@@ -8,9 +8,6 @@
         <link rel="stylesheet" href="css/estilo.css" type="text/css"/>
         <?php
         include "conexao/conecta.php";
-        if($_SESSION['login'] == null){
-            header('location:index.php'); 
-        }
         ?>
     </head>
     

@@ -1,6 +1,6 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu.php";
+	include "template/menu_professor.php";
 	$nome = $_POST['nome'];
 	$fisico = $_POST["fisico"];
 	$logico = $_FILES['logico'];
