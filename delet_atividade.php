@@ -1,24 +1,25 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	$resposta = $_POST['resposta'];
-	$cod_questao = $_POST['codigo'];
+	$cod_questao = $_GET['seq'];
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 	if($con){
-		$sql = "insert into resposta_certa(resposta, cod_questao) ".
-			"values ('$resposta','$cod_questao')";
+		$sqlDelete = "SET FOREIGN_KEY_CHECKS=0;";
+		$res = mysql_query($sqlDelete, $con);
+		$sql = "DELETE FROM questao 
+		          WHERE cod_questao = $cod_questao;";		
 		$rs = mysql_query($sql, $con);
 		if($rs){
-			echo "<h1>Resposta Cadastrada com Sucesso.</h1>";
+			echo "<h1>Questão excluida com sucesso.</h1>";
 		}
 		else{
-			echo "Erro de inclusão: ".mysql_error();
+			echo "Erro de alteração: ".mysql_error();
 		}
-
+	
 	} else{
 		echo "Erro de conexão: ".mysql_error();
 	}

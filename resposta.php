@@ -32,7 +32,10 @@
 					<textarea name="resposta" cols="85" rows="5"></textarea> <br />
 				</div>
 				<input type="hidden" name="codigo" value="<?php echo $tmp; ?>">
-				<input type="submit" value="Confirmar">
+
+				<div class="submitResposta">
+					<input type="submit" value="Confirmar">
+				</div>
 			</form>
 			<?php
 		}

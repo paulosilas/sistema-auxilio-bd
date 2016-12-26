@@ -1,9 +1,9 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	$cod_atividade = $_GET['seq'];
+	include "scripts//addNovaAmostra.js";
 ?>        
-
+	
 <div id="content">
 	<div id="caixa">
 	<?php
@@ -11,7 +11,7 @@
 	?>
 	<form name="cadastro_questao" action="insert_questao.php" method=POST >
 	<h1> Inclusão de Questão</h1>
-	<b>Nº:</b><input type="text" name="num_questao" size=5 maxlenght=11> <br />
+	<h1></h1>
 	<div id="enunciado">
 		<h3>Enunciado:</h3>
 		<textarea name="enunciado"> </textarea> <br />
@@ -20,7 +20,14 @@
 	<div id="enunciado">
 			<h3>Resposta:</h3><textarea name="resposta"></textarea> <br />
 	</div>
-	<b>Banco:</b> <select name="codigo">
+
+	<h3>Amostras:</h3>
+	<div id="campoPai"></div>
+	<div id="enunciado">
+		<input type="button" value=" + " onclick="addCampos()"> </br>
+	</div>
+
+	<h3>Banco: <select name="codigo">
   		<?php
   			$sql = "select cod_modelo, nome from modelo";
   			$rs = mysql_query($sql, $con);
@@ -34,12 +41,17 @@
 			mysql_free_result($rs);				
 		}
 		else{
-			echo "Erro de Consulta de Questão: ".mysql_error();
+			echo "Não foi possivel selecionar o modelo: ".mysql_error();
 		}
   		?>
-	</select>
-	<input type="hidden" name="cod_atividade" value="<?php echo $cod_atividade;?>" />
-	<input type="submit" value="Cadastrar">
+	</select></h3>
+	<div class="botaoAtividade">
+		<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">
+	</div>
+	<div class="submitAtividade">
+		<input type="submit" value="Cadastrar">
+	</div>
+
 	</form>
 	
 	<?php

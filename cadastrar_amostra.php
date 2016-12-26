@@ -1,6 +1,7 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+	$cod_questao = $_POST['codigo'];
 ?>        
 
 <div id="content">
@@ -10,29 +11,17 @@
 	?>
 	<form name="cadastro_amostra" action="insert_amostra.php" method=POST >
 		<h1> Inclusão de Amostra</h1>
-		<b>Nº Questão:</b> <select name="codigo">
-	 	<?php
-	  		$sql = "select cod_questao, num_questao from questao";
-	  		$rs = mysql_query($sql, $con);
-	  		if($rs){
-				while($valor = mysql_fetch_array($rs)){
-					$cod_questao = $valor['cod_questao'];
-					$num_questao = $valor['num_questao'];
-
-					echo "<option value='$cod_questao'>$num_questao</option>";
-				}	
-				mysql_free_result($rs);				
-			}
-			else{
-				echo "Erro de Consulta de Questão: ".mysql_error();
-			}
-	  	?>
-		</select>
-
 		<div id="enunciado">
 			<h3>Amostra:</h3><textarea name="amostra"> </textarea>
+			<input type="hidden" name="codigo" value="<?php echo $cod_questao; ?>" />
 		</div>
-		<input type="submit" value="Cadastrar">
+		<div class="botaoAtividade">
+			<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">
+		</div>
+
+		<div class="submitAtividade">
+			<input type="submit" value="Cadastrar">
+		</div>
 	</form>
 	
 	<?php

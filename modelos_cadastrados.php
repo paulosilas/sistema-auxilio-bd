@@ -16,12 +16,16 @@
 		echo "<b>Modelo Lógico</b> <br />";
 		echo "<div id='img'><img src='modelos_logicos/".$modelo->logico."' alt='Foto do Modelo' /></div> <br />";
 		// Exibimos o modelo logico
-		echo "<h3>Logico:</h3>"; 
+		echo "<h3>Físico:</h3>"; 
 		echo "<div id='fisico'>";
 			echo $modelo->fisico;
-		echo "</div>";
-
+		echo "</div>";		
 		}
+		?>
+		<div class="botaoAtividade">
+			<input type="button" value="Voltar" onClick="history.go(-1)">
+		</div>
+		<?php
 
 	} else{
 		echo "Erro de conexão: ".mysql_error();

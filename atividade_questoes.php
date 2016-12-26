@@ -1,32 +1,32 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	include "scripts/botaoCadastrarAmostra.js";
+	$_SESSION['cod_nova_atividade'] = $_GET['seq'];
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 		if($con){
-		$sql = "select * from amostra_dados WHERE cod_questao=".$_GET['seq'];
+		$sql = "SELECT a.cod_atividade, a.semestre, r.cod_atividade, r.cod_questao, q.cod_questao, q.enunciado FROM atividade as a INNER JOIN questao_e_atividade as r INNER JOIN questao as q WHERE a.cod_atividade = ".$_GET['seq']." AND q.cod_questao = r.cod_questao AND r.cod_atividade =".$_GET['seq'];
 		$rs = mysql_query($sql, $con);
 		if($rs){?>
-			<h1> Amostras Cadastradas </h1>
+			<h1> Questões </h1>
 			<table border=1 width=80% align = "center">
 				<tr>
 					<thead>
-						<th>Amostra</th>
-						<th>Usar</th>
-						<th>Alterar</th>
+						<th>Enunciado</th>
+						<th>Responder</th>
+						<th>Remover</th>
 						<th>Excluir</th>
 					</thead>
 				</tr>
 			<?php
 				while ($valor = mysql_fetch_array($rs)){
 					echo "<tr>
-							<td>".$valor["amostra"]."</td>
-							<td align='center'><a href='usar_amostra.php?seq=".
-									$valor["cod_amostra"].
+							<td align='center'>".$valor["enunciado"]."</td>
+							<td align='center'><a href='resposta.php?seq=".
+									$valor["cod_questao"].
 							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
 							<td align='center'><a href='altera_amostra.php?seq=".
 									$valor["cod_amostra"].
@@ -39,7 +39,7 @@
 				mysql_free_result($rs);
 				echo "</table>";
 				?>
-				<form name="cadastro_amostra" action="cadastrar_amostra.php" method=POST >
+				<form name="cadastro_amostra" action="selecionar_nova_questao.php" method=POST >
 					<input type="hidden" name="codigo" value="<?php echo $_GET['seq']; ?>" />
 					<div class="botaoAmostra">
 						<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">

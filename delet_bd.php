@@ -20,9 +20,6 @@
     				echo "Imagem do modelo não existe!";
 				}
 
-				$sql2 = "DROP DATABASE ". $valor['nome'];
-				$rs2 = mysql_query($sql2, $con);
-
 				$sql3 = "DELETE FROM modelo 
 		          WHERE cod_modelo = ".$valor['cod_modelo'];		
 				$rs3 = mysql_query($sql3, $con);

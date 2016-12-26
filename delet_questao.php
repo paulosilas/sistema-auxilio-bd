@@ -8,7 +8,7 @@
 	<div id="caixa">
 	<?php
 	if($con){
-		//$sqlDelete = "SET FOREIGN_KEY_CHECKS=0;";
+		$sqlDelete = "SET FOREIGN_KEY_CHECKS=0;";
 		$res = mysql_query($sqlDelete, $con);
 		$sql = "DELETE FROM questao 
 		          WHERE cod_questao = $cod_questao;";		

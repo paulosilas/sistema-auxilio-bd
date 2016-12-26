@@ -7,35 +7,31 @@
 	<div id="caixa">
 	<?php
 		if($con){
-		$sql = "SELECT * FROM questao WHERE cod_atividade =".$_GET['seq'];
+		$sql = "SELECT q.cod_questao, q.enunciado, q.cod_modelo, r.cod_resposta, r.resposta, r.cod_questao FROM questao as q INNER JOIN resposta_certa as r WHERE q.cod_questao = r.cod_questao;";
 		$rs = mysql_query($sql, $con);
 		if($rs){?>
-			<h1> Questões Cadastradas </h1>
+			<h1> Atividades Cadastrados </h1>
 			<table border=1 width=80% align = "center">
 				<tr>
 					<thead>
 						<th>Enunciado</th>
-						<th>Amostra</th>
-						<th>Responder</th>
-						<th>Alterar</th>
+						<th>Resposta</th>
+						<th>Amostras</th>
 						<th>Excluir</th>
 					</thead>
 				</tr>
 			<?php
 				while ($valor = mysql_fetch_array($rs)){
 					echo "<tr>
-							<td><a href='resposta_cadastrada.php?seq=".
-									$valor["cod_questao"].
-							    "'>".$valor["enunciado"]."</a></td>
-							<td align='center'><a href='amostras.php?seq=".
-									$valor["cod_questao"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
-							<td align='center'><a href='resposta.php?seq=".
-									$valor["cod_questao"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
 							<td align='center'><a href='altera_questao.php?seq=".
 									$valor["cod_questao"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
+							    "'>".$valor["enunciado"]."</a></td>
+							<td align='center'><a href='altera_resposta.php?seq=".
+									$valor["cod_resposta"].
+							    "'>".$valor["resposta"]."</a></td>
+							<td align='center'><a href='amostras.php?seq=".
+									$valor["cod_questao"].
+							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>
 							<td align='center'><a href='delet_questao.php?seq=".
 									$valor["cod_questao"].
 							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>

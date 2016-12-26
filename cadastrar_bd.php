@@ -16,7 +16,12 @@
 		</div>
 		<br />
 		<input type="file" name="logico" />
-		<input type="submit" name="cadastrar" value="Cadastrar" />
+		<div class="botaoAtividade">
+			<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">
+		</div>
+		<div class="submitAtividade">
+			<input type="submit" value="Cadastrar">
+		</div>
 	</form>
 	
 	<?php
