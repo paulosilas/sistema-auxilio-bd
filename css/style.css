@@ -10,7 +10,7 @@ html{
 	margin: 0;
 }
 
-buttomody{
+body{
 	height: 100%;
 	width: 100%;
 	margin: 0;
@@ -211,6 +211,8 @@ table a:visited{
 	margin-bottom: 10px;
 	margin-top: 5px;
 	text-align: center;
+	text-decoration: underline; 
+	color: #2E8B57;
 }
 
 #caixa h3{

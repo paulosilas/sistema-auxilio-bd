@@ -12,8 +12,9 @@
 		$sql = "insert into amostra_dados(amostra, cod_questao) ".
 			"values ('$amostra','$cod_questao')";
 		$rs = mysql_query($sql, $con);
-		if($rs){
-			echo "<h1>Amostra Cadastrada com Sucesso.</h1>";
+		if($rs){?>
+				<meta http-equiv="refresh" content=0;url="http://localhost:8088/template/amostras.php?seq=<?php echo $cod_questao;?>">
+			<?php
 		}
 		else{
 			echo "Erro de inclusão: ".mysql_error();

@@ -31,10 +31,10 @@
 							    "'>".$valor["resposta"]."</a></td>
 							<td align='center'><a href='amostras.php?seq=".
 									$valor["cod_questao"].
-							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>
+							    "'><img src='ico/amostra.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='delet_questao.php?seq=".
 									$valor["cod_questao"].
-							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>
+							    "'><img src='ico/apagar.png' alt='edit' height='32'></a></td>
 						</tr>";					
 				}
 				mysql_free_result($rs);

@@ -17,6 +17,7 @@
 					<thead>
 						<th>Tipo</th>
 						<th>Semestre</th>
+						<th>Notas</th>
 						<th>Excluir</th>
 					</thead>
 				</tr>
@@ -27,9 +28,12 @@
 							<td align='center'><a href='atividade_questoes.php?seq=".
 									$valor["cod_atividade"].
 							    "'>".$valor["semestre"]."</a></td>
+							<td align='center'><a href='notas_alunos.php?seq=".
+									$valor["cod_atividade"].
+							    "'><img src='ico/amostra.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='delet_atividade.php?seq=".
-									$valor["cod_modelo"].
-							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>
+									$valor["cod_atividade"].
+							    "'><img src='ico/apagar.png' alt='edit' height='32'></a></td>
 						</tr>";					
 				}
 				mysql_free_result($rs);

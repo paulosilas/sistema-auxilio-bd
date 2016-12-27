@@ -15,6 +15,9 @@
 		$rs = mysql_query($sql, $con);
 		if($rs){
 			echo "<h1>Amostra excluida com sucesso.</h1>";
+			?>
+				<meta http-equiv="refresh" content=0;url="http://localhost:8088/template/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
+			<?php
 		}
 		else{
 			echo "Erro de alteração: ".mysql_error();

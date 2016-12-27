@@ -34,12 +34,12 @@
 		<h3>Inicio</h3>
 		
 		<h3>Data:<input type=date  name="dataInicio" min=2016-09-08> </h3>
-		<h3>Horario:<input type=time name="horarioInicio" min=00:00 max=24:00 step=900></h3>
+		<h3>Horario:<input type=time name="horarioInicio" min=00:00 max=24:00 step=300></h3>
 
 		<h3>Fim</h3>
 		
 		<h3>Data:<input type=date  name="dataFim" min=2016-09-08></h3>
-		<h3>Horario:<input type=time name="horarioFim" min=00:00 max=24:00 step=900></h3>
+		<h3>Horario:<input type=time name="horarioFim" min=00:00 max=24:00 step=300></h3>
 
 		<div class="botaoAtividade">
 			<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">

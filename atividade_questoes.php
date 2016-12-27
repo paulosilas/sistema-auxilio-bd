@@ -18,7 +18,6 @@
 						<th>Enunciado</th>
 						<th>Responder</th>
 						<th>Remover</th>
-						<th>Excluir</th>
 					</thead>
 				</tr>
 			<?php
@@ -27,13 +26,10 @@
 							<td align='center'>".$valor["enunciado"]."</td>
 							<td align='center'><a href='resposta.php?seq=".
 									$valor["cod_questao"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
-							<td align='center'><a href='altera_amostra.php?seq=".
-									$valor["cod_amostra"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
-							<td align='center'><a href='delet_amostra.php?seq=".
-									$valor["cod_amostra"].
-							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>
+							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
+							<td align='center'><a href='remover_questao.php?seq=".
+									$valor["cod_questao"].
+							    "'><img src='ico/remover.png' alt='edit' height='32'></a></td>
 						</tr>";					
 				}
 				mysql_free_result($rs);

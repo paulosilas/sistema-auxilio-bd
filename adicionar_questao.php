@@ -15,7 +15,7 @@
 				}
 	
 				if($rs){?>
-					<meta http-equiv="refresh" content=1;url="http://localhost:8088/template/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
+					<meta http-equiv="refresh" content=0;url="http://localhost:8088/template/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
 					<?php
 
 				}else{

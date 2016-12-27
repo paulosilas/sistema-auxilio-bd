@@ -1,28 +1,22 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	$cod_atividade = $_GET['seq'];
+	$cod_aluno = $_POST['cod_aluno'];
+	$nota = $_POST['nota'];
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 	if($con){
-		$sqlDelete = "SET FOREIGN_KEY_CHECKS=0;";
-		$res = mysql_query($sqlDelete, $con);
-		$sql = "DELETE FROM atividade 
-		          WHERE cod_atividade = $cod_atividade;";		
+	$sql = "UPDATE atividade_e_aluno as al INNER JOIN aluno AS a INNER JOIN atividade as ati SET  nota = '$nota' WHERE ati.cod_atividade = al.cod_atividade AND al.cod_aluno = $cod_aluno AND a.cod_aluno = $cod_aluno;";		
 		$rs = mysql_query($sql, $con);
 		if($rs){
-			echo "<h1>Atividade excluida com sucesso.</h1>";
-			?>
-				<meta http-equiv="refresh" content=2;url="http://localhost:8088/template/atividades.php">
-			<?php
+			echo "<h1>Nota atualizada com sucesso.</h1>";
 		}
 		else{
 			echo "Erro de alteração: ".mysql_error();
 		}
-	
 	} else{
 		echo "Erro de conexão: ".mysql_error();
 	}

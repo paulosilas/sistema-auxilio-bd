@@ -27,13 +27,13 @@
 							<td>".$valor["amostra"]."</td>
 							<td align='center'><a href='usar_amostra.php?seq=".
 									$valor["cod_amostra"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
+							    "'><img src='ico/confirmar.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='altera_amostra.php?seq=".
 									$valor["cod_amostra"].
-							    "'><img src='ico/edit.png' alt='edit' height='16'></a></td>
+							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='delet_amostra.php?seq=".
 									$valor["cod_amostra"].
-							    "'><img src='ico/delet.png' alt='edit' height='16'></a></td>
+							    "'><img src='ico/apagar.png' alt='edit' height='32'></a></td>
 						</tr>";					
 				}
 				mysql_free_result($rs);
