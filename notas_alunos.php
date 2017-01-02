@@ -1,6 +1,9 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+
+	$_SESSION['cod_questao_update_nota'] = $_GET['seq'];
+
 ?>        
 
 <div id="content">

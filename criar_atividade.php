@@ -13,13 +13,27 @@
 					"values ('".$_SESSION['semestre']."', '".$_SESSION['cod_professor']."', '".$_SESSION['cod_tipo']."', '".$_SESSION['dataInicio']." ".$_SESSION['horarioInicio']."', '".$_SESSION['dataFim']." ".$_SESSION['horarioFim']."')";
 				$rs = mysql_query($sql, $con);
 
-				$cod_atividade = mysql_insert_id();
+				$sqlUltimoID = "SELECT MAX(cod_atividade) FROM atividade;";
+				$rsUltimoID = mysql_query($sqlUltimoID, $con);
+
+				if($rsUltimoID){
+						while ($teste = mysql_fetch_array($rsUltimoID)){
+							echo $teste[0]. "<br/>";
+							$_SESSION['cod_atividade_padrao'] = $teste[0];
+							echo $_SESSION['cod_atividade_padrao']. "<br/>";
+					}
+				}
 
 				if($rs){
 					foreach($tipo as $k => $v){ 
 						$sql2 = "INSERT INTO questao_e_atividade(cod_questao, cod_atividade) ".
-						"VALUES ('$v', '$cod_atividade')";
+						"VALUES ('$v', '".$_SESSION['cod_atividade_padrao']."')";
 						$rs2 = mysql_query($sql2, $con);
+
+
+
+						echo "". $_SESSION['cod_atividade_padrao']."<br/>";
+						echo $v."<br/>";
 					}
 
 					$sql3 = "SELECT * FROM aluno";
@@ -41,7 +55,7 @@
 				if($rs2){
 					echo "<h1>Atividade Cadastrada com Sucesso</h1>";
 					?>
-						<meta http-equiv="refresh" content=15;url="http://localhost:8088/template/atividades.php">
+						<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/atividades.php">
 					<?php
 
 				}else{

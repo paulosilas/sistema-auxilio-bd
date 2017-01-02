@@ -27,7 +27,7 @@ body{
 #page{
 	margin:0 auto 0 auto;
 	width: 976px;
-	min-height: 600px;
+	min-height: 680px;
 	height: 100%;
 	padding:0 10px 10px 10px;
 	background-color:#fff;
@@ -51,7 +51,7 @@ body{
 #meio{
 	width: 100%;
 	height: 100%;
-	min-height: 424px;
+	min-height: 484px;
 	float:left;
 	border-left: 2px solid #aade61;
 	border-right: 2px solid #aade61;
@@ -207,6 +207,7 @@ table a:visited{
     width: 100%;
 	background-color: #e7efd1;
 }
+
 #caixa h1{
 	margin-bottom: 10px;
 	margin-top: 5px;
@@ -241,6 +242,18 @@ table a:visited{
     margin-top: 15px;
 }
 
+#caixa .tipoAtividade h3{
+    margin-left: 5%;
+    padding-bottom: 5px;
+}
+
+#caixa .semestreText h3{
+	margin-top: 20px;
+    margin-left: 70%;
+    padding-bottom: 10px;
+}
+
+/*Flutuação dos botões de avançar e submit*/
 #caixa .botaoAtividade input[type=button]{
     margin-left: 5%;
 }
@@ -260,9 +273,17 @@ table a:visited{
 #caixa .submitAmostra input[type=submit]{
     margin-left: 65%;
 }
+#caixa .editarAmostra input[type=submit]{
+    margin-left: 85%;
+}
+
 .botaoVoltar {
   float: left;
 }
+.tipoAtividadeFload {
+  float: left;
+}
+
 /*Fim da Caixa de Conteudo*/
 
 /*Caixa do Login*/
@@ -308,6 +329,17 @@ table a:visited{
 	display: block;
     margin: auto;
     width: 95%;
+}
+
+/*Caixa para poisicionamento dos campos datetime nas atividades*/
+#caixaHorario{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: block;
+    margin: auto;
+    width: 95%;
+	border:solid 2px #dae4c0;
+
 }
 
 /*Caixa do Modelo fisico*/
@@ -388,3 +420,103 @@ table a:visited{
 	text-align: center;
 	line-height: 300px;
 }
+
+/*Froamtação da paginação*/
+#pag{
+	position: absolute;  
+	left: 50%; 
+	background-color: #eee;
+
+}
+.numero{
+        text-decoration: none;
+        background: #C5C5C5;
+        text-align: center;
+        padding: 3px 0;
+        display: block;
+        margin: 0 2px;
+        float: left;
+        width: 20px;
+        color: black;
+}
+
+.numero:hover, .numativo, .controleEsq:hover, .controleDir:hover{
+        background: #666;
+        color: #fff;
+}
+.controleEsq{
+        text-decoration: none;
+        background: #C5C5C5;
+        text-align: center;
+        padding: 3px 8px;
+        display: block;
+        margin: 0 3px;
+        float: left;
+        color: black;
+    }
+
+.controleDir{
+        text-decoration: none;
+        background: #C5C5C5;
+        text-align: center;
+        padding: 3px 8px;
+        margin: 0 3px;
+        float: left;
+        color: black;
+    }
+
+/*Estilização do Filtro para Questões*/
+.styled-select select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+}
+.styled-select {
+   width: 200px;
+   height: 34px;
+   overflow: hidden;
+   background: url(../ico/new_arrow.jpg) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   margin-bottom: 15px;
+   float:left;
+   margin-left: 25px;
+ }
+
+/*Controla a distancia do dois Selects no cadastro de questão*/
+.selectTipo select{
+    margin-right: 300px;
+}
+
+/*Caixa de Filtros*/
+#caixaFiltro{
+  display: block;
+    margin: auto;
+    width: 100%;
+  background-color: #f1f1f1;
+}
+
+#caixaFiltro input[type=submit]{
+  margin-bottom: 10px;
+  padding:5px 20px; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-left: 200px;
+    margin-top: 5px;
+}
+
+#caixaFiltro h3{
+  margin-bottom: 5px;
+  font-size: 26px;
+  margin-left: 25px;
+  color: #2E8B57;
+  text-decoration: underline;
+}
+

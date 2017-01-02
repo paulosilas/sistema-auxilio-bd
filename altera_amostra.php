@@ -13,11 +13,15 @@
 				if($valor = mysql_fetch_array($rs)){?>
 					<form name="altAmostra" action="update_amostra.php" method=POST>
 						<h1> Alteração de Dados de Amostra</h1>
-							ID:<input type="text" name="cod_amostra" size=5 
-							             value="<?php echo $valor['cod_amostra'];?>" readonly> <br>
-							 Enunciado:<input type="text" name="amostra" size=40 
-								value="<?php echo $valor['amostra'];?>" maxlenght=80> <br>
-						<input type="submit" value="Alterar">
+							<h3>ID:<input type="text" name="cod_amostra" size=5 
+							             value="<?php echo $valor['cod_amostra'];?>" readonly> </h3>
+							 <div id="enunciado">
+								<h3>Amostra:</h3>
+								<textarea name="amostra"><?php echo $valor['amostra']; ?></textarea> <br />
+							</div>
+						<div class="editarAmostra">
+							<input type="submit" value="Alterar">
+						</div>
 					</form>
 				<?php
 				}

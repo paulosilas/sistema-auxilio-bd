@@ -34,7 +34,7 @@
 						<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">
 					</div>
 					<div class="submitAmostra">
-						<input type="submit" value="Avançar">
+						<input type="submit" value="Confirmar">
 					</div>
 				</form>
 				<?php

@@ -13,6 +13,8 @@
 		$sql = "DELETE FROM atividade 
 		          WHERE cod_atividade = $cod_atividade;";		
 		$rs = mysql_query($sql, $con);
+		$sqlDelete2 = "SET FOREIGN_KEY_CHECKS=1;";
+		$res2 = mysql_query($sqlDelete2, $con);
 		if($rs){
 			echo "<h1>Atividade excluida com sucesso.</h1>";
 			?>

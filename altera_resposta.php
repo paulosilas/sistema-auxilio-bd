@@ -13,8 +13,8 @@
 			if($valor = mysql_fetch_array($rs)){?>
 				<form name="altResposta" action="update_resposta.php" method=POST>
 					<h1> Alteração de Dados da Resposta</h1>
-					ID:<input type="text" name="cod_resposta" size=5 
-						    value="<?php echo $valor['cod_resposta'];?>" readonly> <br>
+					<h3>ID:<input type="text" name="cod_resposta" size=5 
+						    value="<?php echo $valor['cod_resposta'];?>" readonly></h3>
 					<div id="enunciado">
 						<h3>Resposta:</h3>
 						<textarea name="resposta"><?php echo $valor['resposta']; ?></textarea> <br />

@@ -25,6 +25,9 @@
 				$rs3 = mysql_query($sql3, $con);
 
 				echo "<h1>Banco Excluido com Sucesso!</h1>";
+				?>
+					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
+				<?php
 			}
 		}
 		else{

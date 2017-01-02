@@ -64,6 +64,9 @@
 			// Se os dados forem inseridos com sucesso
 			if ($sql){
 				echo "<h1>Base de Dados Cadastrada com Sucesso.</h1>";
+				?>
+					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
+				<?php
 			}
 		}
 	

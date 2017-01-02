@@ -13,6 +13,9 @@
 		$rs = mysql_query($sql, $con);
 		if($rs){
 			echo "<h1>Nota atualizada com sucesso.</h1>";
+			?>
+				<meta http-equiv="refresh" content=0;url="http://localhost:8088/template/notas_alunos.php?seq=<?php echo $_SESSION['cod_questao_update_nota'];?>">
+			<?php
 		}
 		else{
 			echo "Erro de alteração: ".mysql_error();

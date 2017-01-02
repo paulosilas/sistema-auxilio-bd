@@ -15,6 +15,9 @@
 		$rs = mysql_query($sql, $con);
 		if($rs){
 			echo "<h1>Amostra atualizada com sucesso.</h1>";
+			?>
+				<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/questoes.php">
+			<?php
 		}
 		else{
 			echo "Erro de alteração: ".mysql_error();

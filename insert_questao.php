@@ -4,6 +4,7 @@
 	$enunciado = $_POST['enunciado'];
 	$cod_modelo = $_POST['codigo'];
 	$resposta = $_POST['resposta'];
+	$cod_tipo = $_POST['cod_tipo'];
 	$cod_questao = "";
 ?>        
 
@@ -11,8 +12,8 @@
 	<div id="caixa">
 	<?php
 	if($con){
-		$sql = "insert into questao(enunciado, cod_modelo) ".
-			"values ('$enunciado', '$cod_modelo')";
+		$sql = "insert into questao(enunciado, cod_modelo, cod_tipo) ".
+			"values ('$enunciado', '$cod_modelo', '$cod_tipo')";
 		$rs = mysql_query($sql, $con);
 		if($rs){
 			$cod_questao = mysql_insert_id();
@@ -33,6 +34,9 @@
 
 			if($rs2){
 				echo "<h1>Questão Cadastrada com Sucesso</h1>";
+				?>
+					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/questoes.php">
+				<?php
 			}else{
 				echo "Erro de inclusão na Resposta: ".mysql_error();
 			}
