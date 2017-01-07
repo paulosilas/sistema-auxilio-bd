@@ -9,7 +9,7 @@
 		if($con){
 			?>
 			<div id="index">
-				<?php $sql = "SELECT u.cod_usuario, u.login, u.senha, p.nome FROM usuario as u INNER JOIN professor as p WHERE u.login = '".$_SESSION['login']."';";
+				<?php $sql = "SELECT u.cod_usuario, u.login, u.senha, p.nome FROM usuario as u INNER JOIN professor as p WHERE p.cod_usuario = u.cod_usuario and u.login = '".$_SESSION['login']."';";
 				$rs = mysql_query($sql, $con);
 				if($rs){
 					while ($valor = mysql_fetch_array($rs)){

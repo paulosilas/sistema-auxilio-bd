@@ -1,7 +1,7 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	$amostra = $_POST['amostra'];
+	$amostra = addslashes($_POST['amostra']);
 	$cod_questao = $_POST['codigo'];
 ?>        
 

@@ -12,7 +12,7 @@
 	<form name="cadastro_bd" action="insert_bd.php" method="post" enctype="multipart/form-data" >
 		<b>Nome:</b> <input type="text" name="nome" /><br />
 		<div id="enunciado">
-			<h3>Fisico:</h3> <textarea name="fisico"></textarea>
+			<h3>Modelo Fisico:</h3> <textarea name="fisico"></textarea>
 		</div>
 		<br />
 		<input type="file" name="logico" />

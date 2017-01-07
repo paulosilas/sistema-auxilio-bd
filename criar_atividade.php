@@ -18,9 +18,7 @@
 
 				if($rsUltimoID){
 						while ($teste = mysql_fetch_array($rsUltimoID)){
-							echo $teste[0]. "<br/>";
 							$_SESSION['cod_atividade_padrao'] = $teste[0];
-							echo $_SESSION['cod_atividade_padrao']. "<br/>";
 					}
 				}
 

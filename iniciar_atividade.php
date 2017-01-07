@@ -1,6 +1,6 @@
 <?php
 	include "template/topo.php";	
-	include "template/menu_professor.php";
+	include "template/menu_aluno.php";
 	$_SESSION['cod_nova_atividade'] = $_GET['seq'];
 ?>        
 

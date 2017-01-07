@@ -16,7 +16,7 @@
 		echo "<b>Modelo Lógico</b> <br />";
 		echo "<div id='img'><img src='modelos_logicos/".$modelo->logico."' alt='Foto do Modelo' /></div> <br />";
 		// Exibimos o modelo logico
-		echo "<h3>Físico:</h3>"; 
+		echo "<h3>Modelo Físico:</h3>"; 
 		echo "<div id='fisico'>";
 			echo $modelo->fisico;
 		echo "</div>";		

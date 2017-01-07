@@ -2,7 +2,7 @@
 	include "template/topo.php";	
 	include "template/menu_professor.php";
 	$nome = $_POST['nome'];
-	$fisico = $_POST["fisico"];
+	$fisico = addslashes($_POST["fisico"]);
 	$logico = $_FILES['logico'];
 ?>        
 
@@ -67,15 +67,11 @@
 				?>
 					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
 				<?php
+			}else{
+				echo "Falha ao inserir base de dados: ".mysql_error();
 			}
 		}
-	
-		// Se houver mensagens de erro, exibe-as
-		if (count($error) != 0) {
-			foreach ($error as $erro) {
-				echo $erro . "<br />";
-			}
-		}
+
 	}
 	} else{
 		echo "Erro de conexão: ".mysql_error();

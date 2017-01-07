@@ -9,7 +9,14 @@
 		if($con){
 			?>
 			<div id="index">
-				<h1>Bem Vindo! <?php echo "". $_SESSION['login'] .""?> </h1>
+				<?php $sql = "SELECT u.cod_usuario, u.login, u.senha, a.nome FROM usuario as u INNER JOIN aluno as a WHERE a.cod_usuario = u.cod_usuario and u.login = '".$_SESSION['login']."';";
+				$rs = mysql_query($sql, $con);
+				if($rs){
+					while ($valor = mysql_fetch_array($rs)){
+						echo "<H1>Bem Vindo(a) ".$valor['nome']."!</H1>";
+					}
+				}
+				?>
 			</div>
 			<?php
 		}
