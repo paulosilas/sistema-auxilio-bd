@@ -31,7 +31,14 @@
 	  		</select></h3>
 	  	</div>
 	  	<div class="semestreText">
-			<h3>Semestre:<input type="text" name="semestre" size=5 maxlenght=11> </h3>
+			<h3>Semestre:<select name="semestre"> 
+				<option value="Primeiro">Primeiro</option>
+				<option value="Segundo">Segundo</option>
+				<option value="Terceiro">Terceiro</option>
+				<option value="Quarto">Quarto</option>
+				<option value="Quinto">Quinto</option>
+				<option value="Sexto">Sexto</option></h3>
+			</select></h3>
 		</div>
 
 		<div id="caixaHorario">

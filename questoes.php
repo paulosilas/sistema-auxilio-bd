@@ -1,49 +1,53 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
-	$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-?>        
+?> 
+
+<!-- Inicio dos Scripts -->
+
+<script src="scripts/paging.js"></script>
+<script src="scripts/jquery-1.7.2.min.js"></script>
+<script src="scripts/filtro.js"></script>
+
+<!-- Fim dos Scripts -->
 
 <div id="content">
 	<div id="caixa">
 	<?php
 		if($con){
-		$sql = "SELECT q.cod_questao, q.enunciado, q.cod_modelo, r.cod_resposta, r.resposta, r.cod_questao FROM questao as q INNER JOIN resposta_certa as r WHERE q.cod_questao = r.cod_questao;";
+		$sql = "SELECT q.cod_questao, q.enunciado, q.cod_modelo, q.cod_tipo, r.cod_resposta, r.resposta, r.cod_questao, tp.cod_tipo, tp.tipo, m.cod_modelo, m.nome FROM questao as q INNER JOIN resposta_certa as r INNER JOIN tipo_questao as tp INNER JOIN  modelo as m WHERE q.cod_questao = r.cod_questao and q.cod_tipo = tp.cod_tipo and q.cod_modelo = m.cod_modelo;";
 		$rs = mysql_query($sql, $con);
-		//conta o total de itens
-    	$total = mysql_num_rows($rs);
-    	  //seta a quantidade de itens por página, neste caso, 2 itens
-    	$registros = 5;
-   
-    	//calcula o número de páginas arredondando o resultado para cima
-    	$numPaginas = ceil($total/$registros);
-   
-   		//variavel para calcular o início da visualização com base na página atual
-    	$inicio = ($registros*$pagina)-$registros;
-
-    	$sql = "SELECT q.cod_questao, q.enunciado, q.cod_modelo, r.cod_resposta, r.resposta, r.cod_questao FROM questao as q INNER JOIN resposta_certa as r WHERE q.cod_questao = r.cod_questao limit $inicio,$registros;";
-		$rs = mysql_query($sql, $con);
-		$total = mysql_num_rows($rs);
 
 		if($rs){?>
-	</div><?php
+	</div>
+
+
+<!-- Inicio do Filtro -->
+	<?php
 		include "template/filtros.php";
 	?>
-	<div id="caixa">
-			<br/>
-			<h1> Questões Cadastrados </h1>
-			<table border=1 width=80% align = "center">
-				<tr>
-					<thead>
-						<th>Enunciado</th>
-						<th>Resposta</th>
-						<th>Amostras</th>
-						<th>Excluir</th>
-					</thead>
-				</tr>
+
+<!-- Fim do Filtro -->
+
+<div id="caixa">
+	<h1> Questões Cadastrados </h1>
+
+	<!-- Inicio da Lista -->
+	<table id="tb1" border=1 width=80% align = "center">
+		<div id="produtos">
+			<tr class="produto">
+			  	<th>Categoria</th>
+				<th>Enunciado</td>
+				<th>Resposta</td>
+				<th>Amostras</td>
+				<th>Excluir</td>
+		 	</tr>
+
 			<?php
 				while ($valor = mysql_fetch_array($rs)){
-					echo "<tr>
+					echo "<tr class='produto'>
+							<td class='frente' align='center'>".$valor["tipo"]."</td>
+							<td class='dormitorio' style='display:none'>".$valor["nome"]."</td>
 							<td align='center'><a href='altera_questao.php?seq=".
 									$valor["cod_questao"].
 							    "'>".$valor["enunciado"]."</a></td>
@@ -59,22 +63,24 @@
 						</tr>";					
 				}
 				mysql_free_result($rs);
-				echo "</table>";
-				 //exibe a paginação
-				echo "<div id='pag'>";
-					if($pagina > 1) {
-					    echo "<a href='questoes.php?pagina=".($pagina - 1)."' class='controleEsq'>&laquo; Anterior</a>";
-					}
-					 
-					for($i = 1; $i < $numPaginas + 1; $i++) {
-					    $ativo = ($i == $pagina) ? 'numativo' : '';
-					    echo "<a href='questoes.php?pagina=".$i."' class='numero ".$ativo."'> ".$i." </a>";
-					}
-					     
-					if($pagina < $numPaginas) {
-					    echo "<a href='questoes.php?pagina=".($pagina + 1)."' class='controleDir'>Proximo &raquo;</a>";
-					}
-				echo "</div>";
+			?>	
+		</div>
+	</table>
+	<!-- Fim da Lista -->
+
+	<!-- Inicio da Paginação-->
+	<div id="pag">
+	<div id="pageNav"></div>
+		<script>
+		    var pager = new Pager('tb1',5); 
+		    pager.init(); 
+		    pager.showPageNav('pager', 'pageNav'); 
+		    pager.showPage(1);
+		</script>	
+	</div>
+	<!-- Fim da Paginação-->
+
+	<?php
 		}
 		else{
 			echo "Erro de Consulta de Provas e Questões: ".mysql_error();
@@ -85,6 +91,7 @@
 	}
 	?>
 	</div>
+
 </div>
 
 <?php

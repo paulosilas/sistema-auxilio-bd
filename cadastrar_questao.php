@@ -23,7 +23,7 @@
 
 	<h3>Amostras:</h3>
 	<div id="campoPai"></div>
-	<div id="enunciado">
+	<div id="botaoSomar">
 		<input type="button" value=" + " onclick="addCampos()"> </br>
 	</div>
 	<div class="selectTipo">

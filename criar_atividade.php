@@ -27,11 +27,6 @@
 						$sql2 = "INSERT INTO questao_e_atividade(cod_questao, cod_atividade) ".
 						"VALUES ('$v', '".$_SESSION['cod_atividade_padrao']."')";
 						$rs2 = mysql_query($sql2, $con);
-
-
-
-						echo "". $_SESSION['cod_atividade_padrao']."<br/>";
-						echo $v."<br/>";
 					}
 
 					$sql3 = "SELECT * FROM aluno";

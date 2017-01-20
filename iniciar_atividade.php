@@ -1,56 +1,73 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_aluno.php";
-	$_SESSION['cod_nova_atividade'] = $_GET['seq'];
+	if($_SESSION['cod_nova_atividade'] == null){
+		$_SESSION['cod_nova_atividade'] = $_GET['seq'];
+	}
+	$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
-		if($con){
-		$sql = "SELECT a.cod_atividade, a.semestre, r.cod_atividade, r.cod_questao, q.cod_questao, q.enunciado FROM atividade as a INNER JOIN questao_e_atividade as r INNER JOIN questao as q WHERE a.cod_atividade = ".$_GET['seq']." AND q.cod_questao = r.cod_questao AND r.cod_atividade =".$_GET['seq'];
+	if($con){
+		$sql = "SELECT a.cod_atividade, a.semestre, r.cod_atividade, r.cod_questao, q.cod_questao, q.enunciado FROM atividade as a INNER JOIN questao_e_atividade as r INNER JOIN questao as q WHERE a.cod_atividade = ".$_SESSION['cod_nova_atividade']." AND q.cod_questao = r.cod_questao AND r.cod_atividade =".$_SESSION['cod_nova_atividade'].";";
 		$rs = mysql_query($sql, $con);
+
+		$total = mysql_num_rows($rs);
+    	  //seta a quantidade de itens por página, neste caso, 2 itens
+    	$registros = 1;
+
+    	//calcula o número de páginas arredondando o resultado para cima
+    	$numPaginas = ceil($total/$registros);
+
+    	//variavel para calcular o início da visualização com base na página atual
+    	$inicio = ($registros*$pagina)-$registros;
+
+    	$sql = "SELECT a.cod_atividade, a.semestre, r.cod_atividade, r.cod_questao, q.cod_questao, q.enunciado FROM atividade as a INNER JOIN questao_e_atividade as r INNER JOIN questao as q WHERE a.cod_atividade =".$_SESSION['cod_nova_atividade']." AND q.cod_questao = r.cod_questao AND r.cod_atividade =".$_SESSION['cod_nova_atividade']." limit $inicio, $registros;";
+		$rs = mysql_query($sql, $con);
+		//$total = mysql_num_rows($rs);
+
+
 		if($rs){?>
-			<h1> Questões </h1>
+			<h1> Atividades </h1>
 			<table border=1 width=80% align = "center">
 				<tr>
 					<thead>
-						<th>Enunciado</th>
-						<th>Responder</th>
-						<th>Remover</th>
+						<th>Questão</th>
 					</thead>
 				</tr>
 			<?php
-				while ($valor = mysql_fetch_array($rs)){
-					echo "<tr>
-							<td align='center'>".$valor["enunciado"]."</td>
-							<td align='center'><a href='resposta.php?seq=".
-									$valor["cod_questao"].
-							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
-							<td align='center'><a href='remover_questao.php?seq=".
-									$valor["cod_questao"].
-							    "'><img src='ico/remover.png' alt='edit' height='32'></a></td>
+			while ($valor = mysql_fetch_array($rs)){
+				$tmp = $valor['cod_questao'];
+				echo "<tr>
+						<td>".$valor["enunciado"]."</td>
 						</tr>";					
-				}
-				mysql_free_result($rs);
-				echo "</table>";
-				?>
-				<form name="cadastro_amostra" action="selecionar_nova_questao2.php" method=POST >
-					<input type="hidden" name="codigo" value="<?php echo $_GET['seq']; ?>" />
-					<div class="botaoAmostra">
-						<input type="button" value="Voltar" class="botaoVoltar" onClick="history.go(-1)">
-					</div>
-					<div class="submitAmostra">
-						<input type="submit" value="+">
-					</div>
-				</form>
-				<?php
+			}
+			mysql_free_result($rs);
+			echo "</table>";
+
+			$_SESSION['respostas_correcao'] = array();
+
+			?>
+				<div id="resposta">
+					<textarea name="$_SESSION['respostas_correcao'][1]" cols="85" rows="5"><?php echo $_SESSION['respostas_correcao'][1]?></textarea> <br />
+				</div>
+			<?php
+
+			 //exibe a paginação
+				echo "<div id='pag'>";					 
+					for($i = 1; $i < $numPaginas + 1; $i++) {
+					    $ativo = ($i == $pagina) ? 'numativo' : '';
+					    echo "<a href='iniciar_atividade.php?pagina=".$i."' class='numero ".$ativo."'> ".$i." </a>";
+					}		     
+
+				echo "</div>";
 		}
 		else{
-			echo "Erro de Consulta de Provas e Questões: ".mysql_error();
+			echo "Erro na Consulta de Questões: ".mysql_error();
 		}
-	}
-	else{
+	} else{
 		echo "Erro de conexão: ".mysql_error();
 	}
 	?>

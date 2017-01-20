@@ -5,7 +5,7 @@
 
         <title>IFSP - Caraguatatuba</title>
 
-        <link rel="stylesheet" href="css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="css/stylesss.css" type="text/css"/>
         <?php
         include "conexao/conecta.php";
         if($_SESSION['login'] == null){

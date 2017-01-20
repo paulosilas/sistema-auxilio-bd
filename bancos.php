@@ -17,7 +17,6 @@
 						<th>Nome</th>
 						<th>Ativar</th>
 						<th>Desativar</th>
-						<th>Criar</th>
 						<th>Excluir</th>
 					</thead>
 				</tr>
@@ -33,9 +32,6 @@
 							<td align='center'><a href='desativar_banco.php?seq=".
 									$valor["cod_modelo"].
 							    "'><img src='ico/remover.png' alt='edit' height='32'></a></td>
-							<td align='center'><a href='gerar_banco.php?seq=".
-									$valor["cod_modelo"].
-							    "'><img src='ico/adicionar.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='delet_bd.php?seq=".
 									$valor["cod_modelo"].
 							    "'><img src='ico/apagar.png' alt='edit' height='32'></a></td>

@@ -60,6 +60,30 @@
 		
 			// Insere os dados no banco
 			$sql = mysql_query("INSERT INTO modelo (nome, logico, fisico) VALUES ('".$nome."','".$nome_imagem."', '".$fisico."')");
+
+
+			$sqlUltimoID = "SELECT MAX(cod_modelo) FROM modelo;";
+			$rsUltimoID = mysql_query($sqlUltimoID, $con);
+
+			if($rsUltimoID){
+				while ($teste = mysql_fetch_array($rsUltimoID)){
+					$_SESSION['cod_modelo_criar'] = $teste[0];
+
+					$sqlCriarBD = "select fisico from modelo WHERE cod_modelo=".$_SESSION['cod_modelo_criar'];
+					$rsCriarBD = mysql_query($sqlCriarBD, $con);
+					
+					if($valorBD = mysql_fetch_array($rsCriarBD)){
+						$pieces = explode(";", $valorBD['fisico']);
+						foreach ($pieces as $piece) {
+							$sqlPartes = $piece;
+							$rs2Partes = mysql_query($sqlPartes, $con);
+
+						}
+					}
+				}
+			}else{
+				echo "Não foi possivel selecionar o ultimo modelo cadastrado: ".mysql_error();
+			}
 		
 			// Se os dados forem inseridos com sucesso
 			if ($sql){
