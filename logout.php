@@ -6,6 +6,9 @@
 	<div id="caixa">
 	<?php
 	if($con){
+			mysql_close($con2);
+			$_SESSION['nome_db'] = "";
+
 			unset ($_SESSION['login']);
 			unset ($_SESSION['senha']);
 			unset ($_SESSION['permissao']);

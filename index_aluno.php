@@ -9,11 +9,13 @@
 		if($con){
 			?>
 			<div id="index">
-				<?php $sql = "SELECT u.cod_usuario, u.login, u.senha, a.nome FROM usuario as u INNER JOIN aluno as a WHERE a.cod_usuario = u.cod_usuario and u.login = '".$_SESSION['login']."';";
+				<?php $sql = "SELECT u.cod_usuario, u.login, u.senha, a.nome, a.cod_aluno FROM usuario as u INNER JOIN aluno as a WHERE a.cod_usuario = u.cod_usuario and u.login = '".$_SESSION['login']."';";
 				$rs = mysql_query($sql, $con);
 				if($rs){
 					while ($valor = mysql_fetch_array($rs)){
 						echo "<H1>Bem Vindo(a) ".$valor['nome']."!</H1>";
+
+						$_SESSION['cod_aluno_logado'] = $valor['cod_aluno'];
 					}
 				}
 				?>

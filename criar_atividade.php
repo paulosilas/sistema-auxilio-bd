@@ -35,7 +35,7 @@
 					if($rs3){
 						while ($valor = mysql_fetch_array($rs3)){
 							$sql4 = "INSERT INTO atividade_e_aluno(cod_atividade, cod_aluno, nota)".
-								"VALUES ('$cod_atividade', '".$valor['cod_aluno']."', 0)";
+								"VALUES ('".$_SESSION['cod_atividade_padrao']."', '".$valor['cod_aluno']."', 0)";
 								$rs4 = mysql_query($sql4, $con);
 						}
 					}else{

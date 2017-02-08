@@ -15,7 +15,7 @@
 			$rs = mysql_query($sql, $con);
 			if($rs){
 				if($valor = mysql_fetch_assoc($rs)){
-					$sql2 = $valor['resposta'];
+					$sql2 = $valor['resposta'];										
 					$rs2 = mysql_query($sql2, $con2);
 					if($rs2){
 						while ($valor2 = mysql_fetch_array($rs2)) {

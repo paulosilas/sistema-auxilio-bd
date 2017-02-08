@@ -7,10 +7,11 @@
 	<div id="caixa">
 	<?php
 	if($con){
-		$sql = mysql_query("SELECT * FROM modelo WHERE cod_modelo=".$_GET['seq']);
+		$sql = "SELECT * FROM modelo WHERE cod_modelo=".$_GET['seq'].";";
+		$rs = mysql_query($sql, $con);
  
 		// Le todos os dados
-		while ($modelo = mysql_fetch_object($sql)) {
+		while ($modelo = mysql_fetch_object($rs)) {
 		echo "<b>Nome: </b>" . $modelo->nome . "<br />";
 		// Exibimos o modelo fisico
 		echo "<b>Modelo Lógico</b> <br />";

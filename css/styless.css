@@ -281,6 +281,14 @@ table a:visited{
     margin-left: 85%;
 }
 
+#caixa .submitRespostaFinal input[type=submit]{
+    margin-left: 80%;
+}
+
+#caixa .botaoFinalizarRevisão input[type=button]{
+    margin-left: 80%;
+}
+
 .botaoVoltar {
   float: left;
 }
@@ -612,4 +620,85 @@ div.produto {
 }
 
 /* Fim da Estilização do Filtro para Questões*/
+
+/*Paginação das Questões*/
+
+
+
+ul.pagination3 li {
+    padding: 10px;
+    font-family: georgia;
+    font-size: 24px;
+    line-height: 1;
+    width: 755px;
+    margin-bottom: 20px;
+  list-style:none;
+}
+
+ul.red {
+  outline:10px solid red;
+}
+
+ul.simplePagerNav li{
+    display:block;
+    float: left;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: georgia;
+  font-size:14px;
+  float:left;
+  margin-left: 20px;
+}
+
+ul.simplePagerNav li a{
+    text-decoration: none;
+}
+
+li.currentPage {
+    background: #666;  
+}
+
+li.anotherPage{
+  background: #ccc;
+}
+
+ul.simplePagerNav li.currentPage a {
+  color: #fff;  
+}
+
+ul.simplePagerNav li.anotherPage a{
+  color: black;
+}
+
+ul {
+  clear: both;
+}
+
+#caixaDoEnunciado li{
+  background: #53c68c;
+  border-collapse: collapse;
+    border: 1px solid black;
+}
+
+#caixaDoEnunciado textarea{
+  margin-left: 10px;
+  width: 730px;
+  height: 200px;
+}
+
+
+#caixaResultado{
+  display: block;
+    margin: auto;
+    width: 30%;
+  background-color: #e7efd1;
+  border: 5px double #aade61;
+  border-radius: 8px;
+  background-color: white;
+  padding: 10px;
+}
+
+#caixa p{
+  font-size: 16px;
+}
 
