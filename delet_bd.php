@@ -1,37 +1,37 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+	$con = conecta();
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 	if($con){
-		$sql = "select * from modelo WHERE cod_modelo=".$_GET['seq'];
-		$rs = mysql_query($sql, $con);
+		$sql = "SELECT * FROM modelo WHERE cod_modelo=".$_GET['seq'];
+		$buscaModelo = $con->prepare($sql);
+		$buscaModelo->execute();
 
-		if($rs){
-			if($valor = mysql_fetch_array($rs)){
 
-				$Path = "modelos_logicos/".$valor['logico'];
-				if (file_exists($Path)){
-    				unlink($Path);
-				} else {
-    				echo "Imagem do modelo não existe!";
-				}
+		while($modelos = $buscaModelo->fetch(PDO::FETCH_ASSOC)){
 
-				$sql3 = "DELETE FROM modelo 
-		          WHERE cod_modelo = ".$valor['cod_modelo'];		
-				$rs3 = mysql_query($sql3, $con);
-
-				echo "<h1>Banco Excluido com Sucesso!</h1>";
-				?>
-					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
-				<?php
+			$Path = "modelos_logicos/".$modelos['logico'];
+			if (file_exists($Path)){
+    			unlink($Path);
+			} else {
+    			echo "Imagem do modelo não existe!";
 			}
-		}
-		else{
-			echo "Banco não selecionado! : ".mysql_error();
+
+			$sql3 = "DELETE FROM modelo 
+		         WHERE cod_modelo = ".$modelos['cod_modelo'];		
+			$deletaModelo = $con->prepare($sql3);
+			$deletaModelo->execute();
+
+			echo "<h1>Banco Excluido com Sucesso!</h1>";
+			echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
+	?>
+			<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
+	<?php
 		}
 	
 	} else{

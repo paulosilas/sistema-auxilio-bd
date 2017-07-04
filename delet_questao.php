@@ -1,6 +1,7 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+	$con = conecta();
 	$cod_questao = $_GET['seq'];
 ?>        
 
@@ -8,22 +9,36 @@
 	<div id="caixa">
 	<?php
 	if($con){
-		$sqlDelete = "SET FOREIGN_KEY_CHECKS=0;";
-		$res = mysql_query($sqlDelete, $con);
-		$sql = "DELETE FROM questao 
-		          WHERE cod_questao = $cod_questao;";		
-		$rs = mysql_query($sql, $con);
-		$sqlDelete2 = "SET FOREIGN_KEY_CHECKS=1;";
-		$res2 = mysql_query($sqlDelete2, $con);
-		if($rs){
-			echo "<h1>Questão excluida com sucesso.</h1>";
-			?>
-					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/questoes.php">
-				<?php
-		}
-		else{
-			echo "Erro de alteração: ".mysql_error();
-		}
+		//Deleta a amostra da questão
+		$sqlDeleteAmostra = "DELETE FROM amostra_dados WHERE cod_questao = $cod_questao;";		
+		$deleteAmostra = $con->prepare($sqlDeleteAmostra);
+		$deleteAmostra->execute();
+
+		//Deleta a resposta da questão
+		$sqlDeleteResposta ="DELETE FROM resposta_certa WHERE cod_questao = $cod_questao;";		
+		$deleteResposta = $con->prepare($sqlDeleteResposta);
+		$deleteResposta->execute();
+
+		//Zera a chave estrangeira
+		$sqlZerarKey = "SET foreign_key_checks = 0;";
+		$resetaChave = $con->prepare($sqlZerarKey);
+		$resetaChave->execute(); 
+
+		//Deleta a questão
+		$sql = "DELETE FROM questao WHERE cod_questao = $cod_questao;";		
+		$deleteQuestao = $con->prepare($sql);
+		$deleteQuestao->execute(); 
+
+		//Liga a chave estrangeira novamente
+		$sqLigarKey = "SET foreign_key_checks = 1;";
+		$ligaChave = $con->prepare($sqLigarKey);
+		$ligaChave->execute(); 
+
+		echo "<h1>Questão excluida com sucesso.</h1>";
+		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
+	?>
+			<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/questoes.php">
+	<?php
 	
 	} else{
 		echo "Erro de conexão: ".mysql_error();

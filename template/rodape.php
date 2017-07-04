@@ -1,5 +1,5 @@
 <?php
-	mysql_close($con);
+	unset($con);
 ?>
 			</div>
     		<div id="footer">

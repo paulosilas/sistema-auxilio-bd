@@ -1,62 +1,86 @@
 <?php
 	include "template/topo.php";	
-	$login = $_POST['login'];
-	$senha = $_POST['senha'];
+	$con = conecta();
+
+	$login = isset($_POST['login']) ? $_POST['login'] : '';
+	$senhaParaHash = isset($_POST['senha']) ? $_POST['senha'] : '';
+
+	echo "Login: ".$login." Senha: ".$senha."<br />";
+
+	if (empty($login) || empty($senha))
+	{
+		header('location:index.php'); 
+	}
+
+	// cria o hash da senha
+	$senha = make_hash($senhaParaHash);
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
-	if($con){
-		$sql = "SELECT cod_usuario, login, permissao FROM usuario WHERE login = '$login' AND senha = '$senha'";
-		$rs = mysql_query($sql, $con);
 
+	$sql = "SELECT cod_usuario, login, senha, permissao FROM usuario WHERE login = :login AND senha = :senha";
+	
+	$buscaUsuario = $con->prepare($sql);
+	$buscaUsuario->bindParam(':login', $login);
+	$buscaUsuario->bindParam(':senha', $senha);
 
-		if($rs){
-			if (mysql_num_rows ($rs) > 0) {
+	$buscaUsuario->execute();
 
-				$_SESSION['login'] = $login;
-    			$_SESSION['senha'] = $senha;
+	$validaLogin = false;
 
-				if($valor = mysql_fetch_assoc($rs)){
-					if($valor['permissao'] == 1){
+	while($usuarios = $buscaUsuario->fetch(PDO::FETCH_ASSOC)){
+		$validaLogin = true;
 
-						$sqlProfessor = "SELECT cod_professor FROM professor WHERE cod_usuario = ".$valor['cod_usuario'].";";
-						$rsProfessor = mysql_query($sqlProfessor, $con);
+			echo "Login: ".$usuarios['login']." Senha: ".$usuarios['senha']."".$usuarios['permissao']."<br />";
 
-						if($valorProf = mysql_fetch_assoc($rsProfessor)){
-							$_SESSION['cod_professor'] = $valorProf['cod_professor'];
-						}
+			if($usuarios['permissao'] == 1){
 
-						$_SESSION['permissao'] = $permissao;
+				$sqlProfessor = "SELECT cod_professor FROM professor WHERE cod_usuario = ".$usuarios['cod_usuario'];
 
-						header('location:index_professor.php');    
-					}else{
-						$_SESSION['permissao'] = $permissao;
-						header('location:index_aluno.php'); 
-					}
+				$buscaProfessor = $con->prepare($sqlProfessor);
+				$buscaProfessor->execute();
+
+				while($professores = $buscaProfessor->fetch(PDO::FETCH_ASSOC)){
+					$_SESSION['cod_professor'] = $professores['cod_professor'];
+
+					echo "Codigo do Professor: ".$_SESSION['cod_professor'];
 				}
 
-    			echo "<H1> Login Realizado com sucesso! </h1>";
+				$_SESSION['login'] = $usuarios['login'];
+		    	$_SESSION['senha'] = $usuarios['senha'];
+		    	$_SESSION['permissao'] = $usuarios['permissao'];
 
-			}else {
-			 //Limpa
-				unset ($_SESSION['login']);
-				unset ($_SESSION['senha']);
+				header('location:index_professor.php'); 
 
-					 
-				//Redireciona para a página de autenticação
-				header('location:index.php');    
+			}else if($usuarios['permissao'] == 2){
+
+				$sqlAluno = "SELECT cod_aluno FROM aluno WHERE cod_usuario = ".$usuarios['cod_usuario'];
+
+				$buscaAluno = $con->prepare($sqlAluno);
+				$buscaAluno->execute();
+
+				while($alunos = $buscaAluno->fetch(PDO::FETCH_ASSOC)){
+					$_SESSION['cod_aluno'] = $alunos['cod_aluno'];
+
+					echo "Codigo do Aluno: ".$_SESSION['cod_aluno'];
+				}
+
+				$_SESSION['login'] = $usuarios['login'];
+		    	$_SESSION['senha'] = $usuarios['senha'];
+		    	$_SESSION['permissao'] = $usuarios['permissao'];
+
+				header('location:index_aluno.php'); 
+
+			}else{
+				header('location:index.php'); 
 			}
-
-		}
-		else{
-			echo "Erro de Login: ".mysql_error();
 		}
 
-	} else{
-		echo "Erro de conexão: ".mysql_error();
-	}
+		if($validaLogin == false){
+			header('location:index.php'); 
+		}
 	?>
 	</div>
 </div>

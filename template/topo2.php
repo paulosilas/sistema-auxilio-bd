@@ -5,9 +5,10 @@
 
         <title>IFSP - Caraguatatuba</title>
 
-        <link rel="stylesheet" href="css/styless.css" type="text/css"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css"/>
         <?php
         include "conexao/conecta.php";
+        //include "acentos.php";
         ?>
     </head>
     

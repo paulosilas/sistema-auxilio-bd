@@ -2,58 +2,60 @@
 	include "template/topo.php";	
 	include "template/menu_professor.php";
 	$tipo = $_POST['codigo']; 
-	?>        
+	$con = conecta();
+?>        
 
 <div id="content">
 	<div id="caixa">
 		<?php
 			if($con){
 
-				$sql = "insert into atividade(semestre, cod_professor, cod_tipo, inicio, fim) ".
-					"values ('".$_SESSION['semestre']."', '".$_SESSION['cod_professor']."', '".$_SESSION['cod_tipo']."', '".$_SESSION['dataInicio']." ".$_SESSION['horarioInicio']."', '".$_SESSION['dataFim']." ".$_SESSION['horarioFim']."')";
-				$rs = mysql_query($sql, $con);
+				$sql = "INSERT INTO atividade(semestre, cod_professor, cod_tipo, inicio, fim, ano) ".
+					"values ('".$_SESSION['semestre']."', '".$_SESSION['cod_professor']."', '".$_SESSION['cod_tipo']."', '".$_SESSION['dataInicio']." ".$_SESSION['horarioInicio']."', '".$_SESSION['dataFim']." ".$_SESSION['horarioFim']."', '".date('Y')."')";
 
-				$sqlUltimoID = "SELECT MAX(cod_atividade) FROM atividade;";
-				$rsUltimoID = mysql_query($sqlUltimoID, $con);
+				$insereAtividade = $con->prepare($sql);
+				$insereAtividade->execute();
 
-				if($rsUltimoID){
-						while ($teste = mysql_fetch_array($rsUltimoID)){
-							$_SESSION['cod_atividade_padrao'] = $teste[0];
-					}
+				$sqlUltimoID = "SELECT MAX(cod_atividade) as cod_atividade FROM atividade;";
+				
+				$buscaUltimoID = $con->prepare($sqlUltimoID);
+				$buscaUltimoID->execute();
+
+				//Ta com problema!
+				while($ultimoID = $buscaUltimoID->fetch(PDO::FETCH_ASSOC)){
+					$_SESSION['cod_atividade_padrao'] = $ultimoID['cod_atividade'];
+				}
+				
+
+				foreach($tipo as $k => $v){ 
+					$sql2 = "INSERT INTO questao_e_atividade(cod_questao, cod_atividade) ".
+					"VALUES ('$v', '".$_SESSION['cod_atividade_padrao']."')";
+
+					$insereQuestaoAtividade = $con->prepare($sql2);
+					$insereQuestaoAtividade->execute();
 				}
 
-				if($rs){
-					foreach($tipo as $k => $v){ 
-						$sql2 = "INSERT INTO questao_e_atividade(cod_questao, cod_atividade) ".
-						"VALUES ('$v', '".$_SESSION['cod_atividade_padrao']."')";
-						$rs2 = mysql_query($sql2, $con);
-					}
+				$sql3 = "SELECT * FROM aluno";
 
-					$sql3 = "SELECT * FROM aluno";
-					$rs3 = mysql_query($sql3, $con);
+				$buscaAlunos = $con->prepare($sql3);
+				$buscaAlunos->execute();
 
-					if($rs3){
-						while ($valor = mysql_fetch_array($rs3)){
-							$sql4 = "INSERT INTO atividade_e_aluno(cod_atividade, cod_aluno, nota)".
-								"VALUES ('".$_SESSION['cod_atividade_padrao']."', '".$valor['cod_aluno']."', 0)";
-								$rs4 = mysql_query($sql4, $con);
-						}
-					}else{
-						echo "Falha no relacionamento entre atividade e aluno".mysql_error();
-					}
+				while($alunos = $buscaAlunos->fetch(PDO::FETCH_ASSOC)){
+					$sql4 = "INSERT INTO atividade_e_aluno(cod_atividade, cod_aluno, nota, status_atividade)".
+						"VALUES ('".$_SESSION['cod_atividade_padrao']."', '".$alunos['cod_aluno']."', 0, 'Disponivel')";
+
+						$insereAtividadeAluno = $con->prepare($sql4);
+						$insereAtividadeAluno->execute();
+				}
 					
-				}else{
-					echo "Falha ao inserir nova atividade: ".mysql_error();
-				}		
-				if($rs2){
-					echo "<h1>Atividade Cadastrada com Sucesso</h1>";
-					?>
-						<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/atividades.php">
-					<?php
-
-				}else{
-					echo "Falha ao criar atividade: ".mysql_errno();
-				}
+	
+				echo "<h1>Atividade Cadastrada com Sucesso</h1>";
+				echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
+		?>
+				
+				<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/atividades.php">
+				
+				<?php
 				
 			}else{
 				echo "Falha de conexão ao banco de dados: ".mysql_error();

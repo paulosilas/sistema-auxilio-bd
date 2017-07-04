@@ -1,8 +1,10 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+	$con = conecta();
+
 	$nome = $_POST['nome'];
-	$fisico = addslashes($_POST["fisico"]);
+	$fisico = $_POST["fisico"];
 	$logico = $_FILES['logico'];
 ?>        
 
@@ -11,92 +13,93 @@
 	<?php
 	if($con){
 		// Se a imagem logica estiver sido selecionada
-	if (!empty($logico["name"])) {
+		if (!empty($logico["name"])) {
+			
+			// Largura máxima em pixels
+			$largura = 2000;
+			// Altura máxima em pixels
+			$altura = 2000;
+			// Tamanho máximo do arquivo em bytes
+			$tamanho = 1000000;
+
+	    	// Verifica se o arquivo é uma imagem
+	    	if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $logico["type"])){
+	     	   $error[1] = "Isso não é uma imagem.";
+	   	 	} 
 		
-		// Largura máxima em pixels
-		$largura = 2000;
-		// Altura máxima em pixels
-		$altura = 2000;
-		// Tamanho máximo do arquivo em bytes
-		$tamanho = 1000000;
-
-    	// Verifica se o arquivo é uma imagem
-    	if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $logico["type"])){
-     	   $error[1] = "Isso não é uma imagem.";
-   	 	} 
-	
-		// Pega as dimensões da imagem
-		$dimensoes = getimagesize($logico["tmp_name"]);
-	
-		// Verifica se a largura da imagem é maior que a largura permitida
-		if($dimensoes[0] > $largura) {
-			$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
-		}
-
-		// Verifica se a altura da imagem é maior que a altura permitida
-		if($dimensoes[1] > $altura) {
-			$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
-		}
+			// Pega as dimensões da imagem
+			$dimensoes = getimagesize($logico["tmp_name"]);
 		
-		// Verifica se o tamanho da imagem é maior que o tamanho permitido
-		if($logico["size"] > $tamanho) {
-   		 	$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
-		}
+			// Verifica se a largura da imagem é maior que a largura permitida
+			if($dimensoes[0] > $largura) {
+				$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
+			}
 
-		// Se não houver nenhum erro
-		if (count($error) == 0) {
-		
-			// Pega extensão da imagem
-			preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $logico["name"], $ext);
+			// Verifica se a altura da imagem é maior que a altura permitida
+			if($dimensoes[1] > $altura) {
+				$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
+			}
+			
+			// Verifica se o tamanho da imagem é maior que o tamanho permitido
+			if($logico["size"] > $tamanho) {
+	   		 	$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
+			}
 
-        	// Gera um nome único para a imagem
-        	$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+			
+				// Pega extensão da imagem
+				preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $logico["name"], $ext);
 
-        	// Caminho de onde ficará a imagem
-        	$caminho_imagem = "modelos_logicos/" . $nome_imagem;
+	        	// Gera um nome único para a imagem
+	        	$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
 
-			// Faz o upload da imagem para seu respectivo caminho
-			move_uploaded_file($logico["tmp_name"], $caminho_imagem);
-		
-			// Insere os dados no banco
-			$sql = mysql_query("INSERT INTO modelo (nome, logico, fisico) VALUES ('".$nome."','".$nome_imagem."', '".$fisico."')");
+	        	// Caminho de onde ficará a imagem
+	        	$caminho_imagem = "modelos_logicos/" . $nome_imagem;
 
+				// Faz o upload da imagem para seu respectivo caminho
+				move_uploaded_file($logico["tmp_name"], $caminho_imagem);
+			
+				// Insere os dados no banco
+				$sql = "INSERT INTO modelo (nome, logico, fisico) VALUES (:n,'".$nome_imagem."', :f)";
+				$insereModelo = $con->prepare($sql);
+				$insereModelo->bindParam(":f", $fisico);
+				$insereModelo->bindParam(":n", $nome);
+				$insereModelo->execute();
 
-			$sqlUltimoID = "SELECT MAX(cod_modelo) FROM modelo;";
-			$rsUltimoID = mysql_query($sqlUltimoID, $con);
+				$sqlUltimoID = "SELECT MAX(cod_modelo) as cod_modelo FROM modelo;";
 
-			if($rsUltimoID){
-				while ($teste = mysql_fetch_array($rsUltimoID)){
-					$_SESSION['cod_modelo_criar'] = $teste[0];
+				$buscaUltimoID = $con->prepare($sqlUltimoID);
+				$buscaUltimoID->execute();
 
-					$sqlCriarBD = "select fisico from modelo WHERE cod_modelo=".$_SESSION['cod_modelo_criar'];
-					$rsCriarBD = mysql_query($sqlCriarBD, $con);
-					
-					if($valorBD = mysql_fetch_array($rsCriarBD)){
-						$pieces = explode(";", $valorBD['fisico']);
+				while($modelos = $buscaUltimoID->fetch(PDO::FETCH_ASSOC)){
+					$_SESSION['cod_modelo_criar'] = $modelos['cod_modelo'];
+
+					$sqlCriarBD = "SELECT fisico FROM modelo WHERE cod_modelo=".$_SESSION['cod_modelo_criar'];
+					$buscarFisico = $con->prepare($sqlCriarBD);
+					$buscarFisico->execute();
+						
+					while($bancoCriar = $buscarFisico->fetch(PDO::FETCH_ASSOC)){
+						$pieces = explode(";", $bancoCriar['fisico']);
 						foreach ($pieces as $piece) {
 							$sqlPartes = $piece;
-							$rs2Partes = mysql_query($sqlPartes, $con);
+							$executaBanco = $con->prepare($sqlPartes);
+							$executaBanco->execute();
 
 						}
 					}
 				}
-			}else{
-				echo "Não foi possivel selecionar o ultimo modelo cadastrado: ".mysql_error();
-			}
-		
-			// Se os dados forem inseridos com sucesso
-			if ($sql){
-				echo "<h1>Base de Dados Cadastrada com Sucesso.</h1>";
-				?>
-					<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
-				<?php
-			}else{
-				echo "Falha ao inserir base de dados: ".mysql_error();
-			}
-		}
+			
+				// Se os dados forem inseridos com sucesso
+				if ($sql){
+					echo "<h1>Base de Dados Cadastrada com Sucesso.</h1>";
+					echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
+					?>
+						<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/bancos.php">
+					<?php
+				}else{
+					echo "Falha ao inserir base de dados: ".mysql_error();
+				}
 
-	}
+		}
 	} else{
 		echo "Erro de conexão: ".mysql_error();
 	}

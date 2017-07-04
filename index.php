@@ -1,5 +1,7 @@
 <?php
-	include "template/topo2.php";	
+	include "template/topo2.php";
+	$con = conecta();
+
 ?>        
 <div id="content_index">
 	<div id="caixa">

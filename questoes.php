@@ -1,6 +1,7 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+	$con = conecta();
 ?> 
 
 <!-- Inicio dos Scripts -->
@@ -14,13 +15,14 @@
 <div id="content">
 	<div id="caixa">
 	<?php
-		if($con){
+	if($con){
 		$sql = "SELECT q.cod_questao, q.enunciado, q.cod_modelo, q.cod_tipo, r.cod_resposta, r.resposta, r.cod_questao, tp.cod_tipo, tp.tipo, m.cod_modelo, m.nome FROM questao as q INNER JOIN resposta_certa as r INNER JOIN tipo_questao as tp INNER JOIN  modelo as m WHERE q.cod_questao = r.cod_questao and q.cod_tipo = tp.cod_tipo and q.cod_modelo = m.cod_modelo;";
-		$rs = mysql_query($sql, $con);
+		
+		$buscarQuestoes = $con->prepare($sql);
+		$buscarQuestoes->execute();
 
-		if($rs){?>
+	?>
 	</div>
-
 
 <!-- Inicio do Filtro -->
 	<?php
@@ -40,29 +42,28 @@
 				<th>Enunciado</td>
 				<th>Resposta</td>
 				<th>Amostras</td>
+				<th>Alterar</th>
 				<th>Excluir</td>
 		 	</tr>
 
 			<?php
-				while ($valor = mysql_fetch_array($rs)){
+				while($questoes = $buscarQuestoes->fetch(PDO::FETCH_ASSOC)){
 					echo "<tr class='produto'>
-							<td class='frente' align='center'>".$valor["tipo"]."</td>
-							<td class='dormitorio' style='display:none'>".$valor["nome"]."</td>
-							<td align='center'><a href='altera_questao.php?seq=".
-									$valor["cod_questao"].
-							    "'>".$valor["enunciado"]."</a></td>
-							<td align='center'><a href='altera_resposta.php?seq=".
-									$valor["cod_resposta"].
-							    "'>".$valor["resposta"]."</a></td>
+							<td class='primeiro' align='center'>".$questoes["tipo"]."</td>
+							<td class='segundo' style='display:none'>".$questoes["nome"]."</td>
+							<td align='center'>".$questoes["enunciado"]."</td>
+							<td align='center'>".$questoes["resposta"]."</td>
 							<td align='center'><a href='amostras.php?seq=".
-									$valor["cod_questao"].
+									$questoes["cod_questao"].
 							    "'><img src='ico/amostra.png' alt='edit' height='32'></a></td>
+							<td align='center'><a href='alterar_questao.php?seq=".
+									$questoes["cod_questao"].
+							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='delet_questao.php?seq=".
-									$valor["cod_questao"].
-							    "'><img src='ico/apagar.png' alt='edit' height='32'></a></td>
+									$questoes["cod_questao"].
+							    "' onclick=\"return confirm('Tem certeza que deseja apagar esta questão?');\"><img src='ico/apagar.png' alt='edit' height='32'></a></td>
 						</tr>";					
 				}
-				mysql_free_result($rs);
 			?>	
 		</div>
 	</table>
@@ -72,7 +73,7 @@
 	<div id="pag">
 	<div id="pageNav"></div>
 		<script>
-		    var pager = new Pager('tb1',5); 
+		    var pager = new Pager('tb1',10); 
 		    pager.init(); 
 		    pager.showPageNav('pager', 'pageNav'); 
 		    pager.showPage(1);
@@ -81,12 +82,7 @@
 	<!-- Fim da Paginação-->
 
 	<?php
-		}
-		else{
-			echo "Erro de Consulta de Provas e Questões: ".mysql_error();
-		}
-	}
-	else{
+	}else{
 		echo "Erro de conexão: ".mysql_error();
 	}
 	?>

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	var qtdeCampos = 0;
+	var qtdeCampos = 1;
 
 	function addCampos() {
 	var objPai = document.getElementById("campoPai");

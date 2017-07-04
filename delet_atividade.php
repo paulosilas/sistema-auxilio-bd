@@ -1,6 +1,8 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_professor.php";
+	$con = conecta();
+
 	$cod_atividade = $_GET['seq'];
 ?>        
 
@@ -9,21 +11,27 @@
 	<?php
 	if($con){
 		$sqlDelete = "SET FOREIGN_KEY_CHECKS=0;";
-		$res = mysql_query($sqlDelete, $con);
+
+		$resetaChave = $con->prepare($sqlDelete);
+		$resetaChave->execute();
+
 		$sql = "DELETE FROM atividade 
-		          WHERE cod_atividade = $cod_atividade;";		
-		$rs = mysql_query($sql, $con);
+		          WHERE cod_atividade = $cod_atividade;";	
+
+		$deleteAtividade = $con->prepare($sql);
+		$deleteAtividade->execute();
+
 		$sqlDelete2 = "SET FOREIGN_KEY_CHECKS=1;";
-		$res2 = mysql_query($sqlDelete2, $con);
-		if($rs){
-			echo "<h1>Atividade excluida com sucesso.</h1>";
-			?>
-				<meta http-equiv="refresh" content=2;url="http://localhost:8088/template/atividades.php">
-			<?php
-		}
-		else{
-			echo "Erro de alteração: ".mysql_error();
-		}
+
+		$ligaChave = $con->prepare($sqlDelete2);
+		$ligaChave->execute();
+
+		echo "<h1>Atividade excluida com sucesso.</h1>";
+		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
+	?>
+		<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/atividades.php">
+	<?php
+
 	
 	} else{
 		echo "Erro de conexão: ".mysql_error();

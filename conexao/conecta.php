@@ -1,12 +1,59 @@
 <?php
 		session_start('minha_sessao');
-		error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
-		$con = mysql_connect("localhost","root", "", TRUE) or die ("A conexão com o servidor não foi executada com sucesso!");
-		$db = mysql_select_db("tcc", $con) or die ("Não foi possível selecionar o banco de dados!");	
 
-		$db_name = $_SESSION['nome_db'];
-		if($db_name != ""){
-			$con2 = mysql_connect("localhost", "root", "", TRUE) or die ("A conexão do segundo banco com o servidor não foi executada com sucesso!");
-			$db2 = mysql_select_db($db_name, $con2) or die ("Não foi possível selecionar o segundo bando de dados!");
+		/**
+		 *	Cria a conexão com o banco de dados
+		 */
+		function conecta(){
+			try{
+				$pdo = new PDO('mysql:host=localhost;dbname=tcc;charset=utf8', 'root', '');
+			}catch(PDOException $e){
+				//var_dump($e);
+				echo $e->getMessage();
+			}
+			return $pdo;
 		}
+
+		/**
+		 *	Cria a conexão com o segundo banco de dados
+		 */
+
+		if(isset($_SESSION['nome_db'])){
+			$db_name = $_SESSION['nome_db'];
+
+			if($db_name != ""){
+				function conectaSegundo(){
+					try{
+						$db_name = $_SESSION['nome_db'];
+						$pdo2 = new PDO('mysql:host=localhost;dbname='.$db_name.';charset=utf8', 'root', '');
+					}catch(PDOException $e){
+						//var_dump($e);
+						echo $e->getMessage();
+					}
+					return $pdo2;
+				}
+			}
+		}
+
+		/**
+		 * Cria o hash da senha, usando MD5 e SHA-1
+		 */
+		function make_hash($str)
+		{
+		    return sha1(md5($str));
+		}
+
+		/**
+		 * Verifica se o usuário está logado
+		 */
+		function isLoggedIn()
+		{
+		    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true)
+		    {
+		        return false;
+		    }
+		 
+		    return true;
+		}
+		
 ?>

@@ -1,38 +1,38 @@
 <div id="caixaFiltro">
 	<h3>Filtrar Questões</h3>
 	<div id="filtro">	  
-	  <select id="frente">
+	  <select id="primeiro">
 	    <?php
-			$sqlFiltro = "select cod_tipo, tipo from tipo_questao";
-			$rsFiltro = mysql_query($sqlFiltro, $con);
-			if($rsFiltro){
-				echo "<option value='-'>Cetegoria</option>";
-				while($filtro = mysql_fetch_array($rsFiltro)){
-					$cod_tipo = $filtro['cod_tipo'];
-					$tipo = $filtro['tipo'];
+			$sqlFiltro = "SELECT cod_tipo, tipo FROM tipo_questao";
 
-					echo "<option value='$tipo'>$tipo</option>";
-				}	
-				mysql_free_result($rsFiltro);				
-			}
+			$filtroQuestao = $con->prepare($sqlFiltro);
+			$filtroQuestao->execute();
+
+			echo "<option value='-'>Cetegoria</option>";
+			while($tipoQuestao = $filtroQuestao->fetch(PDO::FETCH_ASSOC)){
+				$cod_tipo = $tipoQuestao['cod_tipo'];
+				$tipo = $tipoQuestao['tipo'];
+
+				echo "<option value='$tipo'>$tipo</option>";
+			}			
 		?>
 	  </select>
 	</div>
 	<div id="filtro">	
-	  	<select id="dormitorio">
+	  	<select id="segundo">
 	    <?php
 			$sqlFiltro2 = "SELECT cod_modelo, nome FROM modelo";
-			$rsFiltro2 = mysql_query($sqlFiltro2, $con);
-			if($rsFiltro2){
-				echo "<option value='-'>Modelo</option>";
-				while($filtro2 = mysql_fetch_array($rsFiltro2)){
-					$cod_modelo = $filtro2['cod_modelo'];
-					$nome = $filtro2['nome'];
+			
+			$filtroModelo = $con->prepare($sqlFiltro2);
+			$filtroModelo->execute();
 
-					echo "<option value='$nome'>$nome</option>";
-				}	
-				mysql_free_result($rsFiltro2);				
-			}
+			echo "<option value='-'>Modelo</option>";
+			while($modelo = $filtroModelo->fetch(PDO::FETCH_ASSOC)){
+				$cod_modelo = $modelo['cod_modelo'];
+				$nome = $modelo['nome'];
+
+				echo "<option value='$nome'>$nome</option>";
+			}	
 		?>
 	  	</select>
 	</div>

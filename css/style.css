@@ -10,6 +10,7 @@ html{
 	margin: 0;
 }
 
+
 body{
 	height: 100%;
 	width: 100%;
@@ -23,7 +24,11 @@ body{
 	margin:0 auto;
 }
 
-/*Conteudo*/
+#redirect{
+  text-align: center;
+}
+
+/*Conteudo central*/
 #page{
 	margin:0 auto 0 auto;
 	width: 976px;
@@ -48,6 +53,7 @@ body{
 
 /*Fim do Cabeçalho*/
 
+/*Bloco da Direita*/
 #meio{
 	width: 100%;
 	height: 100%;
@@ -57,16 +63,24 @@ body{
 	border-right: 2px solid #aade61;
 	overflow: hidden;
 }
+
+/*Conteudo do Bloco da Direita*/
 #content{
 	float:left;
 	height: 100%;
 	width: 80%;
 }
 
+/*Conteudo do Bloco sem o menu lateral*/
 #content_index{
 	float:left;
 	height: 100%;
 	width: 100%;
+}
+
+#espacamento b{
+  margin-left: 20px;
+  margin-bottom: 5px;
 }
 
 #sidebar{
@@ -196,6 +210,8 @@ table a:visited{
 }
 /*Fim da Tabela*/
 
+/*Fim Caixa largura 100% */
+
 /*Inicio da Caixa de conteudo*/
 #caixa{
 	display: block;
@@ -203,6 +219,7 @@ table a:visited{
     width: 100%;
 	background-color: #e7efd1;
 }
+
 
 #caixa h1{
 	margin-bottom: 10px;
@@ -217,6 +234,13 @@ table a:visited{
 	margin-bottom: 5px;
 	font-size: 16px;
 	margin-left: 25px;
+}
+
+#caixa h4{
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  margin-left: 25px;
 }
 
 #caixa input[type=submit]{
@@ -242,15 +266,20 @@ table a:visited{
     margin-top: 15px;
 }
 
-#caixa .tipoAtividade h3{
-    margin-left: 5%;
-    padding-bottom: 5px;
+#caixa .tipoAtividade{
+  float: left;
 }
 
-#caixa .semestreText h3{
-	margin-top: 20px;
-    margin-left: 70%;
-    padding-bottom: 10px;
+#caixa .semestreText{
+  float: left;
+  margin-left: 40%;
+}
+
+#subcaixa{
+  display: block;
+    margin: auto;
+    height: 50px;
+    width: 100%;
 }
 
 /*Flutuação dos botões de avançar e submit*/
@@ -271,7 +300,7 @@ table a:visited{
 }
 
 #caixa .botaoAmostra input[type=button]{
-    margin-left: 10%;
+    margin-left: 7%;
 }
 
 #caixa .submitAmostra input[type=submit]{
@@ -282,18 +311,44 @@ table a:visited{
 }
 
 #caixa .submitRespostaFinal input[type=submit]{
-    margin-left: 80%;
+    margin-left: 65%;
+    margin-top: 50px;
+    width: 143px;
 }
 
-#caixa .botaoFinalizarRevisão input[type=button]{
-    margin-left: 80%;
+#caixa .botaoFinalizarRevisao input[type=button]{
+    margin-left: 88%;
+}
+
+#caixa .botaoRevisar input[type=button]{
+    margin-left: 30%;
 }
 
 .botaoVoltar {
   float: left;
 }
-.tipoAtividadeFload {
-  float: left;
+
+#caixa select{
+  width: 100px;
+}
+
+.nomeUsuario input[type=text]{
+  width: 300px;
+  margin-left: 12px;
+}
+
+input[type=text]{
+  width: 100px;
+}
+
+input[type=password]{
+  width: 100px;
+  margin-left: 12px;
+
+}
+
+input[type=file]{
+  margin-left: 25px;
 }
 
 /*Fim da Caixa de Conteudo*/
@@ -610,7 +665,7 @@ div#filtro select{
 
 }
 
-div.produto {
+div.questao {
   background: #DDDDDD;
   width: 31.3%;
   height: 200px;
@@ -621,16 +676,19 @@ div.produto {
 
 /* Fim da Estilização do Filtro para Questões*/
 
-/*Paginação das Questões*/
+/*Paginação da correção que foi para outro arquivo*/
 
 
+
+
+/*Paginação - Arquivo JS*/
 
 ul.pagination3 li {
     padding: 10px;
     font-family: georgia;
     font-size: 24px;
     line-height: 1;
-    width: 755px;
+    width: 758px;
     margin-bottom: 20px;
   list-style:none;
 }
@@ -644,7 +702,6 @@ ul.simplePagerNav li{
     float: left;
     padding: 10px;
     margin-bottom: 10px;
-    font-family: georgia;
   font-size:14px;
   float:left;
   margin-left: 20px;
@@ -656,33 +713,29 @@ ul.simplePagerNav li a{
 
 li.currentPage {
     background: #666;  
-}
-
-li.anotherPage{
-  background: #ccc;
+    border: solid 1px #666;
 }
 
 ul.simplePagerNav li.currentPage a {
   color: #fff;  
 }
 
-ul.simplePagerNav li.anotherPage a{
-  color: black;
-}
-
 ul {
   clear: both;
 }
+
+/*Fim da Paginação */
 
 #caixaDoEnunciado li{
   background: #53c68c;
   border-collapse: collapse;
     border: 1px solid black;
+    font-size: 20px;
 }
 
 #caixaDoEnunciado textarea{
   margin-left: 10px;
-  width: 730px;
+  width: 735px;
   height: 200px;
 }
 
@@ -690,15 +743,45 @@ ul {
 #caixaResultado{
   display: block;
     margin: auto;
-    width: 30%;
+    width: 25%;
   background-color: #e7efd1;
   border: 5px double #aade61;
   border-radius: 8px;
   background-color: white;
-  padding: 10px;
+  padding: 5px;
 }
 
 #caixa p{
   font-size: 16px;
 }
 
+/*Ampliar Imagem*/
+.lightbox {
+  /** Default lightbox to hidden */
+  display: none;
+
+  /** Position and style */
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+}
+
+.lightbox img {
+  /** Pad the lightbox image */
+  max-width: 90%;
+  max-height: 80%;
+  margin-top: 2%;
+}
+
+.lightbox:target {
+  /** Remove default browser outline */
+  outline: none;
+
+  /** Unhide lightbox **/
+  display: block;
+}

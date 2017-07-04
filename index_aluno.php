@@ -1,6 +1,7 @@
 <?php
 	include "template/topo.php";	
 	include "template/menu_aluno.php";
+	$con = conecta();
 ?>        
 
 <div id="content">
@@ -9,14 +10,15 @@
 		if($con){
 			?>
 			<div id="index">
-				<?php $sql = "SELECT u.cod_usuario, u.login, u.senha, a.nome, a.cod_aluno FROM usuario as u INNER JOIN aluno as a WHERE a.cod_usuario = u.cod_usuario and u.login = '".$_SESSION['login']."';";
-				$rs = mysql_query($sql, $con);
-				if($rs){
-					while ($valor = mysql_fetch_array($rs)){
-						echo "<H1>Bem Vindo(a) ".$valor['nome']."!</H1>";
+				<?php 
+				$sql = "SELECT u.cod_usuario, u.login, u.senha, a.nome, a.cod_aluno FROM usuario as u INNER JOIN aluno as a WHERE a.cod_usuario = u.cod_usuario and u.login = '".$_SESSION['login']."';";
+				
+				$alunoLogado = $con->prepare($sql);
+				$alunoLogado->execute();
 
-						$_SESSION['cod_aluno_logado'] = $valor['cod_aluno'];
-					}
+				while($alunos = $alunoLogado->fetch(PDO::FETCH_ASSOC)){
+					echo "<H1>Bem Vindo(a) ".$alunos['nome']."!</H1>";
+					$_SESSION['cod_aluno_logado'] = $alunos['cod_aluno'];
 				}
 				?>
 			</div>
