@@ -8,7 +8,7 @@
 	<?php
 	if($con){
 			unset($con2);
-			session_destroy('minha_sessao');
+			session_destroy();
 					 
 			//Redireciona para a página de autenticação
 			header('location:index.php');   
