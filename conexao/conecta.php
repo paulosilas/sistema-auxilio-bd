@@ -1,5 +1,5 @@
 <?php
-		session_start('minha_sessao');
+		session_start();
 
 		/**
 		 *	Cria a conexão com o banco de dados
