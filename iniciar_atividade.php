@@ -64,7 +64,7 @@
 			while($questoes = $buscaAtividade->fetch(PDO::FETCH_ASSOC)){
 				$_SESSION['cod_modelo_atual'] = $questoes["cod_modelo"];
 
-				if($_SESSION['nome_db'] == ""){
+				if(isset($_SESSION['nome_db'])){
 					$_SESSION['nome_db'] = $questoes['nome'];
 				}		
 
