@@ -312,6 +312,7 @@ table a:visited{
 
 #caixa .submitRespostaFinal input[type=submit]{
     margin-left: 55%;
+    margin-top: 55px;
     width: 143px;
 }
 
