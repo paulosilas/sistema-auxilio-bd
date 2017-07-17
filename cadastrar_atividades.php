@@ -30,8 +30,7 @@
 						$tipo = $tipos['tipo'];
 
 						echo "<option value='$cod_tipo'>$tipo</option>";
-					}	
-					mysql_free_result($rs);				
+					}				
 		  		?>
 		  		</select></h3>
 		  	</div>
