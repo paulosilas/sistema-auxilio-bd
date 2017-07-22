@@ -26,10 +26,12 @@
 		while($temp > 0){
 			$array1 = array();
 			$array2 = array();
+			
 
 			$sqlAmostra = "SELECT amostra FROM amostra_dados WHERE cod_questao=".$_SESSION['respostas_para_comparar'][$loop];
 			$buscaAmostra = $con->prepare($sqlAmostra);
 			$buscaAmostra->execute();
+			
 
 			//Executa as amostras das questões
 			while($amostras = $buscaAmostra->fetch(PDO::FETCH_ASSOC)){
@@ -37,10 +39,11 @@
 
 				$executaAmostra = $con2->prepare($sqlExeAmostra);
 				$executaAmostra->execute();
-			}			
+			}	
 
 			
-			//PROBLEMA ABAIXO POSSIVELMENTE SOLUCIOADO
+			
+			//EXECUÇÃO DAS REPOSTAS ABAIXO
 
 			//Buscas as respostas gravadas no banco de dados
 			$sql = "SELECT resposta FROM resposta_certa WHERE cod_questao=".$_SESSION['respostas_para_comparar'][$loop];
@@ -52,13 +55,15 @@
 
 				$executaResProf = $con2->prepare($sql2);
 				$executaResProf->execute();
-
 				
-				$linha = $executaResProf->fetchAll(PDO::FETCH_ASSOC);
+				$linha = $executaResProf->fetchAll();
+				//print_r($linha);
 
 				foreach ($linha as $listar) {
+					//var_dump($listar);
+
 					array_push($array1, $listar);
-				}				
+				}		
 
 			}
 
@@ -71,14 +76,15 @@
 			$linha2 = $executaRespostaAluno->fetchAll();
 
 			foreach ($linha2 as $listar2) {
+				//var_dump($listar2);
 				array_push($array2, $listar2);
 			}
 
 			$teste1 = iterator_to_array(new RecursiveIteratorIterator(new RecursiveArrayIterator($array1)), 0);
 			$teste2 = iterator_to_array(new RecursiveIteratorIterator(new RecursiveArrayIterator($array2)), 0);
-
 			
-			//PROBLEMA ACIMA POSSIVELMENTE SOLUCIOADO
+			//EXECUÇÃO DAS REPOSTAS ACIMA
+
 
 			if($teste2 != null and $teste1 != null){
 
