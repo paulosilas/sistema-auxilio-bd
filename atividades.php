@@ -16,7 +16,7 @@
 	<div id="caixa">
 	<?php
 		if($con){
-		$sql = "SELECT a.cod_atividade, a.semestre, a.cod_professor, a.cod_tipo, a.inicio, a.fim, a.ano, t.tipo, t.cod_tipo FROM atividade AS a INNER JOIN tipo_atividade as t WHERE a.cod_tipo = t.cod_tipo;";
+		$sql = "SELECT a.cod_atividade, a.semestre, a.cod_professor, a.cod_tipo, a.inicio, a.fim, a.ano, a.status, t.tipo, t.cod_tipo FROM atividade AS a INNER JOIN tipo_atividade as t WHERE a.cod_tipo = t.cod_tipo;";
 		$buscarAtividade = $con->prepare($sql);
 		$buscarAtividade->execute();
 
@@ -41,6 +41,7 @@
 				</tr>
 			<?php
 				while($atividades = $buscarAtividade->fetch(PDO::FETCH_ASSOC)){
+					if($atividades["status"] == 1){
 					echo "<tr class='produto'>
 							<td class='primeiro' align='center'>".$atividades["ano"]."</td>
 							<td class='segundo' align='center'>".$atividades["semestre"]."</td>
@@ -54,7 +55,8 @@
 							<td align='center'><a href='delet_atividade.php?seq=".
 									$atividades["cod_atividade"].
 							    "' onclick=\"return confirm('Tem certeza que deseja apagar esta atividade?');\"><img src='ico/apagar.png' alt='edit' height='32'></a></td>
-						</tr>";					
+						</tr>";
+					}					
 				}
 				echo "</table>";
 				?>
