@@ -10,8 +10,8 @@
 		<?php
 			if($con){
 
-				$sql = "INSERT INTO atividade(semestre, cod_professor, cod_tipo, inicio, fim, ano) ".
-					"values ('".$_SESSION['semestre']."', '".$_SESSION['cod_professor']."', '".$_SESSION['cod_tipo']."', '".$_SESSION['dataInicio']." ".$_SESSION['horarioInicio']."', '".$_SESSION['dataFim']." ".$_SESSION['horarioFim']."', '".date('Y')."')";
+				$sql = "INSERT INTO atividade(semestre, cod_professor, cod_tipo, inicio, fim, ano, status) ".
+					"values ('".$_SESSION['semestre']."', '".$_SESSION['cod_professor']."', '".$_SESSION['cod_tipo']."', '".$_SESSION['dataInicio']." ".$_SESSION['horarioInicio']."', '".$_SESSION['dataFim']." ".$_SESSION['horarioFim']."', '".date('Y')."', 1)";
 
 				$insereAtividade = $con->prepare($sql);
 				$insereAtividade->execute();
