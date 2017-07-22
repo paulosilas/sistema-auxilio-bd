@@ -7,8 +7,6 @@
 		$_SESSION['cod_nova_atividade'] = $_GET['seq'];
 	}
 
-	//include "template/segunda_conexao.php";
-
 	$cont = 0;
 	$_SESSION['num_questoes'] = 0;
 ?>        
@@ -64,10 +62,8 @@
 			while($questoes = $buscaAtividade->fetch(PDO::FETCH_ASSOC)){
 				$_SESSION['cod_modelo_atual'] = $questoes["cod_modelo"];
 
-				if(isset($_SESSION['nome_db'])){
-					$_SESSION['nome_db'] = $questoes['nome'];
-				}		
-
+				$_SESSION['nome_db'] = $questoes['nome'];
+	
 				$tmp = $questoes['cod_questao'];
 				echo "<div id='caixaDoEnunciado'><li>".$questoes["enunciado"]."</li></div>
 					<div id='caixaDoEnunciado'><li><textarea name='campo[]' cols='85' rows='5'></textarea></li></div>";
