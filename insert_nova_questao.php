@@ -17,7 +17,7 @@
 			$insereNovaQuestao->execute();
 		}
 	?>
-		<meta http-equiv="refresh" content=0;url="http://localhost:8088/template/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
+		<meta http-equiv="refresh" content=0;url="/template/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
 	<?php
 	} else{
 		echo "Erro de conexão: ".mysql_error();
