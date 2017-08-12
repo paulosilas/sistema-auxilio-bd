@@ -19,7 +19,7 @@
 		echo "<h1>Nota atualizada com sucesso.</h1>";
 		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-		<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/notas_alunos.php?seq=<?php echo $_SESSION['cod_questao_update_nota'];?>">
+		<meta http-equiv="refresh" content=3;url="/template/notas_alunos.php?seq=<?php echo $_SESSION['cod_questao_update_nota'];?>">
 	<?php
 
 	} else{
