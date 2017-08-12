@@ -129,12 +129,12 @@
 					echo "<b>Nota:</b> " .$notaAluno."</br>";
 				?>
 				<div class="botaoRevisar">
-					<input type="button" value="Revisar" onclick="window.location.href='http://localhost:8088/template/revisar_prova.php';">
+					<input type="button" value="Revisar" onclick="window.location.href='/template/revisar_prova.php';">
 				</div>
 			</div>
 
 			<div class="botaoFinalizarRevisao">
-				<input type="button" value="Finalizar" onclick="window.location.href='http://localhost:8088/template/index_aluno.php';">
+				<input type="button" value="Finalizar" onclick="window.location.href='/template/index_aluno.php';">
 			</div>
 		<?php
 
