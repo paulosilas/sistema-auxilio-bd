@@ -19,7 +19,7 @@
 		echo "<h1>Atividade excluida com sucesso.</h1>";
 		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-		<meta http-equiv="refresh" content=3;url="http://localhost:8088/template/atividades.php">
+		<meta http-equiv="refresh" content=3;url="/template/atividades.php">
 	<?php
 
 	
