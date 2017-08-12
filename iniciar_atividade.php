@@ -42,7 +42,7 @@
 		while($status = $buscaStatus->fetch(PDO::FETCH_ASSOC)){
 			if($status['status_atividade'] == 'Finalizado'){
 				?>
-					<meta http-equiv="refresh" content=0;url="http://localhost:8088/template/index_aluno.php">
+					<meta http-equiv="refresh" content=0;url="/template/index_aluno.php">
 				<?php
 			}else{
 				$sqlUpdate = "UPDATE atividade_e_aluno SET status_atividade = 'Em Andamento' WHERE cod_atividade = ".$_SESSION['cod_nova_atividade']." AND cod_aluno = ".$_SESSION['cod_aluno_logado'].";";
