@@ -64,7 +64,7 @@
 			echo "<h1>Questão Cadastrada com Sucesso</h1>";
 			echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 			?>
-				<meta http-equiv="refresh" content=3;url="/template/questoes.php">
+				<meta http-equiv="refresh" content=3;url="/adqs/questoes.php">
 			<?php
 
 		
