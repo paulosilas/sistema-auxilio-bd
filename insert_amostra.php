@@ -16,7 +16,7 @@
 		$insereAmostra->execute();
 
 	?>
-		<meta http-equiv="refresh" content=0;url="/template/amostras.php?seq=<?php echo $cod_questao;?>">
+		<meta http-equiv="refresh" content=0;url="/adqs/amostras.php?seq=<?php echo $cod_questao;?>">
 	<?php
 	} else{
 		echo "Erro de conexão: ".mysql_error();
