@@ -4,6 +4,7 @@
             <li><a href="atividades.php">Atividades</a></li>
             <li><a href="questoes.php">Questões</a></li>
             <li><a href="bancos.php"> Bancos Cadastrados</a></li>
+            <li><a href="usuarios.php">Usuários</a></li>
             <li><a href="#">Cadastros</a>
                 <ul class="submenu">
                     <li><a href="cadastrar_atividades.php">Atividades</a></li>
