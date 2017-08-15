@@ -23,7 +23,7 @@
 			$ligaChave->execute();
 
 		?>
-			<meta http-equiv="refresh" content=0;url="/template/amostras.php?seq=<?php echo $_SESSION['cod_excluir_amostra'];?>">
+			<meta http-equiv="refresh" content=0;url="/adqs/amostras.php?seq=<?php echo $_SESSION['cod_excluir_amostra'];?>">
 		<?php
 		
 		} else{
