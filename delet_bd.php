@@ -8,6 +8,17 @@
 	<div id="caixa">
 	<?php
 	if($con){
+
+		$sqlAmostra = "SELECT * FROM amostra_dados WHERE cod_modelo=".$_GET['seq'];
+		$buscaAmostra = $con->prepare($sqlAmostra);
+		$buscaAmostra->execute();
+
+		while ($amostras = $buscaAmostra->fetch(PDO::FETCH_ASSOC)) {
+			$sqlDelet = "DELETE FROM amostra_dados WHERE cod_modelo = ".$amostras['cod_modelo'];		
+			$deletaModelo = $con->prepare($sqlDelet);
+			$deletaModelo->execute();
+		}
+
 		$sql = "SELECT * FROM modelo WHERE cod_modelo=".$_GET['seq'];
 		$buscaModelo = $con->prepare($sql);
 		$buscaModelo->execute();
@@ -30,7 +41,7 @@
 			echo "<h1>Banco Excluido com Sucesso!</h1>";
 			echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-			<meta http-equiv="refresh" content=3;url="/adqs/bancos.php">
+			<meta http-equiv="refresh" content=3;url="/template/bancos.php">
 	<?php
 		}
 	

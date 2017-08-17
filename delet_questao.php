@@ -9,10 +9,6 @@
 	<div id="caixa">
 	<?php
 	if($con){
-		//Deleta a amostra da questão
-		$sqlDeleteAmostra = "DELETE FROM amostra_dados WHERE cod_questao = $cod_questao;";		
-		$deleteAmostra = $con->prepare($sqlDeleteAmostra);
-		$deleteAmostra->execute();
 
 		//Deleta a resposta da questão
 		$sqlDeleteResposta ="DELETE FROM resposta_certa WHERE cod_questao = $cod_questao;";		
@@ -37,7 +33,7 @@
 		echo "<h1>Questão excluida com sucesso.</h1>";
 		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-			<meta http-equiv="refresh" content=3;url="/adqs/questoes.php">
+			<meta http-equiv="refresh" content=3;url="/template/questoes.php">
 	<?php
 	
 	} else{

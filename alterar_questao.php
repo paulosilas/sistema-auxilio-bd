@@ -11,7 +11,7 @@
 	<div id="caixa">
 	<?php
 		if($con){
-			$sql = "SELECT q.cod_questao, q.enunciado, r.cod_questao, r.resposta FROM questao as q INNER JOIN resposta_certa as r WHERE r.cod_questao = ".$cod_questao." AND q.cod_questao = ".$cod_questao.";";
+			$sql = "SELECT q.cod_questao, m.cod_modelo, q.enunciado, r.cod_questao, r.resposta, m.nome FROM questao as q INNER JOIN resposta_certa as r INNER JOIN modelo as m WHERE r.cod_questao = ".$cod_questao." AND q.cod_questao = ".$cod_questao." and q.cod_modelo = m.cod_modelo;";
 			$buscarQuestao = $con->prepare($sql);
 			$buscarQuestao->execute();
 
@@ -22,6 +22,31 @@
 					<input type="hidden" name="cod_questao" value="<?php echo $questoes['cod_questao'] ?>" />
 
 					<h1> Alterar Questão</h1>
+
+					<div id="subcaixa">
+						<div class="alterarBanco">
+							<h3 class="botaoVoltar">Banco: <select name="codigo" >
+					  		<?php
+					  			$nome = $questoes['nome'];
+					  			$cod_modelo = $questoes['cod_modelo'];
+					  			echo "<option value='$cod_modelo'>$nome</option>";
+
+					  			$sql = "SELECT cod_modelo, nome FROM modelo";
+					  			$buscaModelo = $con->prepare($sql);
+								$buscaModelo->execute();
+					  			
+								while($modelos = $buscaModelo->fetch(PDO::FETCH_ASSOC)){
+													
+									$nome = $modelos['nome'];
+									$cod_modelo = $modelos['cod_modelo'];
+									echo "<option value='$cod_modelo'>$nome</option>";
+								}	
+								
+					  		?>
+						</select></h3>
+					  	</div>
+		  			</div>
+
 					<div id="enunciado">
 						<h3>Enunciado:</h3>
 						<textarea name="enunciado"><?php echo $questoes['enunciado']; ?></textarea> <br />

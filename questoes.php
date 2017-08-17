@@ -41,7 +41,6 @@
 			  	<th>Categoria</th>
 				<th>Enunciado</td>
 				<th>Resposta</td>
-				<th>Amostras</td>
 				<th>Alterar</th>
 				<th>Excluir</td>
 		 	</tr>
@@ -53,9 +52,6 @@
 							<td class='segundo' style='display:none'>".$questoes["nome"]."</td>
 							<td align='center'>".$questoes["enunciado"]."</td>
 							<td align='center'>".$questoes["resposta"]."</td>
-							<td align='center'><a href='amostras.php?seq=".
-									$questoes["cod_questao"].
-							    "'><img src='ico/amostra.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='alterar_questao.php?seq=".
 									$questoes["cod_questao"].
 							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>

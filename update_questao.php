@@ -6,22 +6,24 @@
 	$cod_questao = $_POST['cod_questao'];
 	$enunciado = $_POST['enunciado'];
 	$resposta = $_POST['resposta'];
+	$cod_modelo = $_POST['codigo'];	
 ?>        
 
 <div id="content">
 	<div id="caixa">
 	<?php
 	if($con){
-	$sql = "UPDATE questao as q INNER JOIN resposta_certa as r ON q.cod_questao = r.cod_questao set q.enunciado = :e, r.resposta = :r WHERE r.cod_questao = '$cod_questao' AND q.cod_questao = '$cod_questao';";		
+	$sql = "UPDATE questao as q INNER JOIN resposta_certa as r ON q.cod_questao = r.cod_questao set q.enunciado = :e, r.resposta = :r, q.cod_modelo = :m WHERE r.cod_questao = '$cod_questao' AND q.cod_questao = '$cod_questao';";		
 	$attQuestao = $con->prepare($sql);
 	$attQuestao->bindParam(":e", $enunciado);
 	$attQuestao->bindParam(":r", $resposta);
+	$attQuestao->bindParam(":m", $cod_modelo);
 	$attQuestao->execute();
 
 		echo "<h1>Questão atualizada com sucesso.</h1>";
 		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-		<meta http-equiv="refresh" content=3;url="/adqs/questoes.php">
+		<meta http-equiv="refresh" content=3;url="/template/questoes.php">
 	<?php
 
 	} else{

@@ -48,7 +48,9 @@
 		// Exibimos o modelo logico
 		echo "<h3>Modelo Físico:</h3>"; 
 		echo "<div id='fisico'>";
-			echo $bancos['fisico'];
+			echo "<pre>";
+				echo $bancos['fisico'];
+			echo "</pre>"; 
 		echo "</div>";		
 		}
 		?>

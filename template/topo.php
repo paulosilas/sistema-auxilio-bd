@@ -13,6 +13,7 @@
         if($_SESSION['login'] == null){
             header('location:index.php'); 
         }
+        //include "acentos.php";
         
         ?>
     </head>

@@ -53,7 +53,7 @@
 				echo "<h1>Banco Foi Limpo com Sucesso!</h1>";
 				echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 				?>
-					<meta http-equiv="refresh" content=3;url="/adqs/bancos.php">
+					<meta http-equiv="refresh" content=3;url="/template/bancos.php">
 				<?php
 			}
 	

@@ -20,7 +20,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("ul.pagination3").quickPagination({pagerLocation:"both",pageSize:"2"});
+		$("ul.pagination3").quickPagination({pagerLocation:"both",pageSize:"3"});
 
 	});
 </script>
@@ -43,10 +43,14 @@
 				$tmp = $atividades['cod_questao'];
 
 				echo "<div id='caixaDoEnunciado'><li class='simples'>".$atividades["enunciado"]."</li></div>
-					<div id='caixaDoEnunciado'><li><u>Resposta Esperada:</u> </br></br>".$atividades["resposta"]."</li></div>";
+					<div id='caixaDoEnunciado'><li><u>Resposta Esperada:</u> </br></br>".$atividades["resposta"]."</li></div>
+					<div id='caixaDoEnunciado'><li><u>Sua Resposta:</u> </br></br>".$_SESSION['respostas_do_aluno'][$cont]."</li></div>";
 
 					$cont++;				
 			}
+
+			//Destroi a variavel com as respostas.
+			unset($_SESSION['respostas_do_aluno']);
 			
 			?>
 			</ul>

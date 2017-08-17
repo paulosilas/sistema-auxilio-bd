@@ -6,6 +6,7 @@
 	$nome = $_POST['nome'];
 	$fisico = $_POST["fisico"];
 	$logico = $_FILES['logico'];
+	$amostra = $_POST['amostras'];
 ?>        
 
 <div id="content">
@@ -65,38 +66,78 @@
 				$insereModelo->bindParam(":n", $nome);
 				$insereModelo->execute();
 
+				//Pega o ID do ultimo banco cadastrado
 				$sqlUltimoID = "SELECT MAX(cod_modelo) as cod_modelo FROM modelo;";
-
 				$buscaUltimoID = $con->prepare($sqlUltimoID);
 				$buscaUltimoID->execute();
 
 				while($modelos = $buscaUltimoID->fetch(PDO::FETCH_ASSOC)){
+
+					//Verifica se existe uma amostra
+					if($amostra != "" and $amostra != null){
+						//Cadastra a amostra usando o ID do ultimo banco cadastrado como chave estrangeira
+						$sqlAsmotra = "INSERT INTO amostra_dados (amostra, cod_modelo) VALUES (:am,'".$modelos['cod_modelo']."')";
+						$insereAmostra = $con->prepare($sqlAsmotra);
+						$insereAmostra->bindParam(":am", $amostra);
+						$insereAmostra->execute();
+					}
+
+					
+
 					$_SESSION['cod_modelo_criar'] = $modelos['cod_modelo'];
 
 					$sqlCriarBD = "SELECT fisico FROM modelo WHERE cod_modelo=".$_SESSION['cod_modelo_criar'];
 					$buscarFisico = $con->prepare($sqlCriarBD);
 					$buscarFisico->execute();
-						
-					while($bancoCriar = $buscarFisico->fetch(PDO::FETCH_ASSOC)){
-						$pieces = explode(";", $bancoCriar['fisico']);
-						foreach ($pieces as $piece) {
-							$sqlPartes = $piece;
-							$executaBanco = $con->prepare($sqlPartes);
-							$executaBanco->execute();
+					
+					try {
+						while($bancoCriar = $buscarFisico->fetch(PDO::FETCH_ASSOC)){
+							$pieces = explode(";", $bancoCriar['fisico']);
+							foreach ($pieces as $piece) {
+								$sqlPartes = $piece;
+								$executaBanco = $con->prepare($sqlPartes);
+								$executaBanco->execute();
 
+							}
 						}
+					} catch (Exception $e) {
+						echo "Não foi Possivel Criar o Banco!".$e;		
+					}	
+				}
+
+				try{
+					//Tenta fazer conexão com o banco para inserir as amostras
+					$conAmostra = new PDO('mysql:host=localhost;dbname='.$nome.';charset=utf8', 'root', '');
+
+				}catch(PDOException $b){
+					echo "Houve um Erro ao Tentar Conectar ao Banco Criado!".$b->getMessage();
+				}
+				
+				if($amostra != "" and $amostra != null){
+					try{
+						//Executa a amostra
+						$partes = explode(";", $amostra);
+						foreach ($partes as $parte) {
+							$sqlPartesAmostra = $parte;
+							$executaAmostra = $con->prepare($sqlPartesAmostra);
+							$executaAmostra->execute();
+						}
+						
+					}catch(PDOException $e){
+						echo "Houve um Erro ao Tentar Inserir as Amostras!".$e->getMessage();
 					}
 				}
+				
 			
-				// Se os dados forem inseridos com sucesso
+				//Se os dados forem inseridos com sucesso
 				if ($sql){
 					echo "<h1>Base de Dados Cadastrada com Sucesso.</h1>";
 					echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 					?>
-						<meta http-equiv="refresh" content=3;url="/adqs/bancos.php">
+						<meta http-equiv="refresh" content=3;url="/template/bancos.php">
 					<?php
 				}else{
-					echo "Falha ao inserir base de dados: ".mysql_error();
+					echo "Houve um Erro ao Tentar Cadastrar o Banco de Dados!";
 				}
 
 		}

@@ -20,6 +20,8 @@
 				<thead>
 					<th>Nome</th>
 					<th>Limpar</th>
+					<th>Amostras</th>
+					<th>Nova Amostra</th>
 					<th>Excluir</th>
 				</thead>
 			</tr>
@@ -32,6 +34,12 @@
 						<td align='center'><a href='limpar_bd.php?seq=".
 								$bancos["cod_modelo"].
 						    "'><img src='ico/limpar.png' alt='edit' height='32'></a></td>
+						<td align='center'><a href='amostras.php?seq=".
+								$bancos["cod_modelo"].
+						    "'><img src='ico/amostra.png' alt='edit' height='32'></a></td>
+						<td align='center'><a href='adicionar_amostra.php?seq=".
+								$bancos["cod_modelo"].
+						    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
 						<td align='center'><a href='delet_bd.php?seq=".
 								$bancos["cod_modelo"].
 						    "' onclick=\"return confirm('Tem certeza que deseja deletar esse banco?');\"><img src='ico/apagar.png' alt='edit' height='32'></a></td>

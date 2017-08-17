@@ -3,7 +3,7 @@
 ?>
 			</div>
     		<div id="footer">
-    			<p>©Renan Lucas Oliveira - TCC - Trabalho de Conclusão de Curso</p>
+    			<p>TCC - Trabalho de Conclusão de Curso</p>
     		</div>
     	</div>
     </div>

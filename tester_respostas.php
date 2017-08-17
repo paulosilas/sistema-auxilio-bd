@@ -3,6 +3,8 @@
 	$con = conecta();
 	$con2 = conectaSegundo();
 
+	$_SESSION['respostas_do_aluno'] = array();
+
 	$loop = 0;
 	$cont = 1;
 
@@ -26,21 +28,6 @@
 		while($temp > 0){
 			$array1 = array();
 			$array2 = array();
-			
-
-			$sqlAmostra = "SELECT amostra FROM amostra_dados WHERE cod_questao=".$_SESSION['respostas_para_comparar'][$loop];
-			$buscaAmostra = $con->prepare($sqlAmostra);
-			$buscaAmostra->execute();
-			
-
-			//Executa as amostras das questões
-			while($amostras = $buscaAmostra->fetch(PDO::FETCH_ASSOC)){
-				$sqlExeAmostra = $amostras['amostra'];
-
-				$executaAmostra = $con2->prepare($sqlExeAmostra);
-				$executaAmostra->execute();
-			}	
-
 			
 			
 			//EXECUÇÃO DAS REPOSTAS ABAIXO
@@ -66,6 +53,9 @@
 				}		
 
 			}
+
+			//Teste para Salvar as Respostas do Aluno
+			array_push($_SESSION['respostas_do_aluno'], $_POST["campo"][$loop]);
 
 			//Executa as respostas dadas pelo aluno
 			$sql3 = $_POST["campo"][$loop];
@@ -129,12 +119,12 @@
 					echo "<b>Nota:</b> " .$notaAluno."</br>";
 				?>
 				<div class="botaoRevisar">
-					<input type="button" value="Revisar" onclick="window.location.href='/adqs/revisar_prova.php';">
+					<input type="button" value="Revisar" onclick="window.location.href='/template/revisar_prova.php';">
 				</div>
 			</div>
 
 			<div class="botaoFinalizarRevisao">
-				<input type="button" value="Finalizar" onclick="window.location.href='/adqs/index_aluno.php';">
+				<input type="button" value="Finalizar" onclick="window.location.href='/template/index_aluno.php';">
 			</div>
 		<?php
 
