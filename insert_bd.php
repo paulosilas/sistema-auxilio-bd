@@ -134,7 +134,7 @@
 					echo "<h1>Base de Dados Cadastrada com Sucesso.</h1>";
 					echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 					?>
-						<meta http-equiv="refresh" content=3;url="/template/bancos.php">
+						<meta http-equiv="refresh" content=3;url="/adqs/bancos.php">
 					<?php
 				}else{
 					echo "Houve um Erro ao Tentar Cadastrar o Banco de Dados!";
