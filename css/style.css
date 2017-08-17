@@ -275,6 +275,11 @@ table a:visited{
   margin-left: 40%;
 }
 
+#caixa .alterarBanco{
+  float: left;
+  margin-left: 70%;
+}
+
 #subcaixa{
   display: block;
     margin: auto;
@@ -414,10 +419,14 @@ input[type=file]{
 /*Caixa do Modelo fisico*/
 #fisico{
 	display: block;
-    margin: auto;
-    width: 95%;
+  margin: auto;
+  width: 95%;
 	background-color: #FFF;
-	padding-bottom: 5px;
+}
+
+pre{
+  width: 100%;
+  overflow:auto;
 }
 
 /*Enunciados*/
