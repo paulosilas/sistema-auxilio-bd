@@ -29,7 +29,7 @@
 		echo "<h1>Questão Removida com Sucesso.</h1>";
 		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-		<meta http-equiv="refresh" content=3;url="/template/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
+		<meta http-equiv="refresh" content=3;url="/adqs/atividade_questoes.php?seq=<?php echo $_SESSION['cod_nova_atividade'];?>">
 	<?php
 	
 	} else{
