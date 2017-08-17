@@ -20,7 +20,7 @@
 		echo "<h1>Amostra atualizada com sucesso.</h1>";
 		echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 	?>
-		<meta http-equiv="refresh" content=3;url="/template/amostras.php?seq=<?php echo $cod_questao ?>">
+		<meta http-equiv="refresh" content=3;url="/adqs/amostras.php?seq=<?php echo $cod_questao ?>">
 	<?php
 
 	} else{
