@@ -53,7 +53,7 @@
 				echo "<div id='redirect'><h3>Você será redirecionado em 3 Segundos... </h3></div>";
 		?>
 				
-				<meta http-equiv="refresh" content=3;url="/template/atividades.php">
+				<meta http-equiv="refresh" content=3;url="/adqs/atividades.php">
 				
 				<?php
 				
