@@ -1,13 +1,11 @@
 <?php
-	include "template/topo.php";	
+	include "template/cabecalho.php";	
 	include "template/menu_aluno_prova.php";
 	$con = conecta();
 	
 	if($_SESSION['cod_nova_atividade'] == null){
 		$_SESSION['cod_nova_atividade'] = $_GET['seq'];
 	}
-
-	//include "template/segunda_conexao.php";
 
 	$cont = 0;
 	$_SESSION['num_questoes'] = 0;
@@ -43,9 +41,9 @@
 
 		while($status = $buscaStatus->fetch(PDO::FETCH_ASSOC)){
 			if($status['status_atividade'] == 'Finalizado'){
-				?>
-					<meta http-equiv="refresh" content=0;url="/adqs/index_aluno.php">
-				<?php
+				
+				header('location:index_aluno.php');
+
 			}else{
 				$sqlUpdate = "UPDATE atividade_e_aluno SET status_atividade = 'Em Andamento' WHERE cod_atividade = ".$_SESSION['cod_nova_atividade']." AND cod_aluno = ".$_SESSION['cod_aluno_logado'].";";
 				$attStatus = $con->prepare($sqlUpdate);
