@@ -28,13 +28,15 @@
 
 	<div id="caixa">
 			<h1> Atividades Cadastradas </h1>
-			<table id="tb1" border=1 width=80% align = "center">
+			<table id="tb1" border=1 width=95% align = "center">
 				<tr>
 					<thead>
 						<th>Ano</th>
+						<th>Data</th>
 						<th>Semestre</th>
 						<th>Tipo</th>
 						<th>Questões</th>
+						<th>Alterar Data</th>
 						<th>Notas</th>
 						<th>Excluir</th>
 					</thead>
@@ -44,9 +46,13 @@
 					if($atividades["status"] == 1){
 					echo "<tr class='produto'>
 							<td class='primeiro' align='center'>".$atividades["ano"]."</td>
+							<td class='primeiro' align='center'>".date('d/m/Y', strtotime($atividades["inicio"]))." - ".date('d/m/Y', strtotime($atividades["fim"]))."</td>
 							<td class='segundo' align='center'>".$atividades["semestre"]."</td>
 							<td align='center'>".$atividades["tipo"]."</td>
 							<td align='center'><a href='atividade_questoes.php?seq=".
+									$atividades["cod_atividade"].
+							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
+							<td align='center'><a href='altera_data.php?seq=".
 									$atividades["cod_atividade"].
 							    "'><img src='ico/editar.png' alt='edit' height='32'></a></td>
 							<td align='center'><a href='notas_alunos.php?seq=".
