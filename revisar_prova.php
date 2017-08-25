@@ -1,13 +1,11 @@
 <?php
-	include "template/topo.php";	
+	include "template/cabecalho.php";	
 	include "template/menu_aluno_prova.php";
 	$con = conecta();
 
 	if($_SESSION['cod_nova_atividade'] == null){
 		$_SESSION['cod_nova_atividade'] = $_GET['seq'];
 	}
-
-	//include "template/segunda_conexao.php";
 
 	$cont = 0;
 ?>        
@@ -42,15 +40,28 @@
 			while($atividades = $buscarAtividade->fetch(PDO::FETCH_ASSOC)){
 				$tmp = $atividades['cod_questao'];
 
-				echo "<div id='caixaDoEnunciado'><li class='simples'>".$atividades["enunciado"]."</li></div>
-					<div id='caixaDoEnunciado'><li><u>Resposta Esperada:</u> </br></br>".$atividades["resposta"]."</li></div>
-					<div id='caixaDoEnunciado'><li><u>Sua Resposta:</u> </br></br>".$_SESSION['respostas_do_aluno'][$cont]."</li></div>";
+				if($_SESSION['certo_errado'][$cont] == 1){				
 
-					$cont++;				
+					//Se estiver correto imprime a div de cor verde
+					echo "<div id='caixaDoEnunciado'><li class='simples'>".$atividades["enunciado"]."</li></div>
+							<div id='caixaDoEnunciado'><li><u>Resposta Esperada:</u> </br></br>".$atividades["resposta"]."</li></div>
+							<div id='caixaDoEnunciado'><li><u>Sua Resposta:</u> </br></br>".$_SESSION['respostas_do_aluno'][$cont]."</li></div>";
+
+				}else{
+
+					//Se estiver incorreto imprime a div de cor vermelha/salmão
+					echo "<div id='caixaDoEnunciado'><li class='simples'>".$atividades["enunciado"]."</li></div>
+							<div id='caixaDoEnunciado'><li><u>Resposta Esperada:</u> </br></br>".$atividades["resposta"]."</li></div>
+							<div id='caixaDoEnunciado2'><li><u>Sua Resposta:</u> </br></br>".$_SESSION['respostas_do_aluno'][$cont]."</li></div>";
+				}
+				$cont++;				
 			}
 
 			//Destroi a variavel com as respostas.
 			unset($_SESSION['respostas_do_aluno']);
+
+			//Destroi variavel de acerto e erro
+			unset($_SESSION['certo_errado']);
 			
 			?>
 			</ul>
