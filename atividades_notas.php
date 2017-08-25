@@ -1,5 +1,5 @@
 <?php
-	include "template/topo.php";	
+	include "template/cabecalho.php";	
 	include "template/menu_aluno.php";
 	$con = conecta();
 ?>        
