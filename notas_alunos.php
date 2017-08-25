@@ -11,7 +11,7 @@
 	<div id="caixa">
 	<?php
 		if($con){
-			$sql = "SELECT ati.cod_atividade, al.cod_atividade, al.cod_aluno, al.nota, a.cod_aluno, a.nome FROM atividade as ati INNER JOIN atividade_e_aluno as al INNER JOIN aluno as a WHERE ati.cod_atividade = ".$_GET['seq']." AND al.cod_atividade = ".$_GET['seq']." AND al.cod_aluno = a.cod_aluno;";
+			$sql = "SELECT ati.cod_atividade, al.cod_atividade, al.cod_aluno, al.nota, al.status_atividade, a.cod_aluno, a.nome FROM atividade as ati INNER JOIN atividade_e_aluno as al INNER JOIN aluno as a WHERE ati.cod_atividade = ".$_GET['seq']." AND al.cod_atividade = ".$_GET['seq']." AND al.cod_aluno = a.cod_aluno;";
 
 			$buscaNota = $con->prepare($sql);
 			$buscaNota->execute();
@@ -23,6 +23,7 @@
 					<thead>
 						<th>Nome</th>
 						<th>Nota</th>
+						<th>Status</th>
 						<th>Alterar</th>
 					</thead>
 				</tr>
@@ -31,6 +32,7 @@
 				echo "<tr>
 						<td align='center'>".$notas["nome"]."</td>
 						<td align='center'>".$notas["nota"]."</td>
+						<td align='center'>".$notas["status_atividade"]."</td>
 						<td align='center'><a href='altera_nota.php?seq=".
 								$notas["cod_aluno"].
 						    "'><img src='ico/amostra.png' alt='edit' height='32'></a></td>
