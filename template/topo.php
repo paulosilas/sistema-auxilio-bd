@@ -10,10 +10,16 @@
         <?php
         
         include "conexao/conecta.php";
+
+        //Verifica se ainda está logado
         if($_SESSION['login'] == null){
             header('location:index.php'); 
         }
-        //include "acentos.php";
+
+        //Verifica se o usuário não é um professor
+        if($_SESSION['permissao'] != 1){
+            header('location:error.php');
+        }
         
         ?>
     </head>
