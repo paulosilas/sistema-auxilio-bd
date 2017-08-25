@@ -748,6 +748,20 @@ ul {
   height: 200px;
 }
 
+#caixaDoEnunciado2 li{
+  background: #FF6347;
+  border-collapse: collapse;
+    border: 1px solid black;
+    font-size: 20px;
+}
+
+
+#caixaDoEnunciado2 textarea{
+  margin-left: 10px;
+  width: 735px;
+  height: 200px;
+}
+
 
 #caixaResultado{
   display: block;
