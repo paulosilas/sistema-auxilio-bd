@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="css/style.css" type="text/css"/>
         <?php
         include "conexao/conecta.php";
-        //include "acentos.php";
         ?>
     </head>
     
