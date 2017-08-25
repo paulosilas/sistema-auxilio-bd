@@ -1,9 +1,13 @@
 <?php
-	include "template/topo.php";	
+	include "template/cabecalho.php";	
 	$con = conecta();
 	$con2 = conectaSegundo();
 
+	//Array para salvar as respostas dos aluno
 	$_SESSION['respostas_do_aluno'] = array();
+
+	//Array para salvar qual reposta está certa e qual esta errada
+	$_SESSION['certo_errado'] = array();
 
 	$loop = 0;
 	$cont = 1;
@@ -54,7 +58,7 @@
 
 			}
 
-			//Teste para Salvar as Respostas do Aluno
+			//Salva as Respostas do Aluno
 			array_push($_SESSION['respostas_do_aluno'], $_POST["campo"][$loop]);
 
 			//Executa as respostas dadas pelo aluno
@@ -84,12 +88,12 @@
 
 				//se não houverem difenças
 				if($resultado == null){
-					//echo "Questão ".$cont ." Correta! <br /><br />";
 					$acertos++;
+					array_push($_SESSION['certo_errado'], 1);
 
 				//Se houver alguma diferença
 				}else{
-					//echo "Questão ".$cont ." Incorreta! <br /><br />";
+					array_push($_SESSION['certo_errado'], 0);
 				}
 				$cont++;
 
