@@ -21,7 +21,6 @@
 				$buscaUltimoID = $con->prepare($sqlUltimoID);
 				$buscaUltimoID->execute();
 
-				//Ta com problema!
 				while($ultimoID = $buscaUltimoID->fetch(PDO::FETCH_ASSOC)){
 					$_SESSION['cod_atividade_padrao'] = $ultimoID['cod_atividade'];
 				}
